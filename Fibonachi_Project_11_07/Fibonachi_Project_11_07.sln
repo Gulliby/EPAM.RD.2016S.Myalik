@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fibonachi_Project_11_07", "Fibonachi_Project_11_07\Fibonachi_Project_11_07.csproj", "{DB03C71C-B19B-4198-80F1-977C7CFA81E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fibonachi", "Fibonachi\Fibonachi.csproj", "{483E9A13-CCC9-4B42-BC1C-328210D29632}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FobonachiTest", "FobonachiTest\FobonachiTest.csproj", "{AC45BFB3-0948-403E-8DCD-AA4017506548}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB03C71C-B19B-4198-80F1-977C7CFA81E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB03C71C-B19B-4198-80F1-977C7CFA81E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB03C71C-B19B-4198-80F1-977C7CFA81E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB03C71C-B19B-4198-80F1-977C7CFA81E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{483E9A13-CCC9-4B42-BC1C-328210D29632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{483E9A13-CCC9-4B42-BC1C-328210D29632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{483E9A13-CCC9-4B42-BC1C-328210D29632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{483E9A13-CCC9-4B42-BC1C-328210D29632}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC45BFB3-0948-403E-8DCD-AA4017506548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC45BFB3-0948-403E-8DCD-AA4017506548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC45BFB3-0948-403E-8DCD-AA4017506548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC45BFB3-0948-403E-8DCD-AA4017506548}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
