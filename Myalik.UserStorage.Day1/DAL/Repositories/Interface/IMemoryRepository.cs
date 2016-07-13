@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace DAL.Repositories.Interface
 {
     public interface IMemoryRepository<TEntity> : IRepository<TEntity>
-        where TEntity : IEntity
+        where TEntity : IDalEntity
     {
         IEnumerable<TEntity> Entities { get; }
     }

@@ -1,17 +1,17 @@
-﻿using DAL.Entities.Interface;
+﻿using BLL.Entities.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Entities
+namespace BLL.Entities
 {
-    public class Country : IEntity
+    public class BllCountry : IBllEnitity
     {
         #region Properties
 
-        public int Id { get; set; }
+        public int Id { get; }
 
         public string ISO { get; set; }
 
@@ -23,7 +23,7 @@ namespace DAL.Entities
 
         public override bool Equals(object obj)
         {
-            var item = obj as Country;
+            var item = obj as BllCountry;
             if (item == null)
             {
                 return false;
@@ -31,10 +31,10 @@ namespace DAL.Entities
             return Equals(item);
         }
 
-        private bool Equals(Country country)
+        private bool Equals(BllCountry country)
         {
             return ((ISO == country.ISO)
-                && (Name == country.Name) 
+                && (Name == country.Name)
                 && (PhoneCode == country.PhoneCode));
         }
 

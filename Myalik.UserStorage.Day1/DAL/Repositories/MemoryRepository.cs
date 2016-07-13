@@ -11,7 +11,7 @@ using DAL.Repositories;
 namespace DAL.Repositories
 {
     public class MemoryRepository<TEntity>: IMemoryRepository<TEntity> 
-        where TEntity: IEntity
+        where TEntity: IDalEntity
     {
 
         protected IList<TEntity> entities;
@@ -30,6 +30,7 @@ namespace DAL.Repositories
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
             entities.Add(entity);
+            entities.Id = 
             return entity.Id;
         }
 

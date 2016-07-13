@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Entities
+namespace DAL.Generator.Interface
 {
-    public enum Gender
+    public interface IIdGenerator
     {
-        Male = 1,
-        Female = 2,
+        IEnumerable<int> Generate();
     }
 }

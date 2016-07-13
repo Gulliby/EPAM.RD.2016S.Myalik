@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories.Interface
 {
-    public interface IUserMemoryRepository : IMemoryRepository<User>
+    public interface IUserRepository : IRepository<DalUser>
     {
-        void AddVisaByUserId(int userId, VisaInfo visaInfo);
-        void RemoveVisaByUserId(int userId, VisaInfo visaInfo);
+        void AddVisaByUserId(int userId, DalVisaInfo visaInfo);
+        void RemoveVisaByUserId(int userId, DalVisaInfo visaInfo);
     }
 }

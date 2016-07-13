@@ -1,17 +1,17 @@
-﻿using DAL.Entities.Interface;
+﻿using BLL.Entities.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Entities
+namespace BLL.Entities
 {
-    public struct VisaInfo : IEntity
+    public class BllVisaInfo : IBllEnitity
     {
-        public int Id { get; set; }
+        public int Id { get; }
 
-        public Country Country { get; }
+        public BllCountry Country { get; }
 
         public DateTime Start { get; }
 
@@ -19,25 +19,25 @@ namespace DAL.Entities
 
         public override bool Equals(object obj)
         {
-            if (!(obj is VisaInfo))
+            if (!(obj is BllVisaInfo))
             {
                 return false;
             }
-            var item = (VisaInfo)obj;
+            var item = (BllVisaInfo)obj;
             return Equals(item);
         }
 
-        private bool Equals(VisaInfo visaInfo)
+        private bool Equals(BllVisaInfo visaInfo)
         {
-            return (Country.Equals(visaInfo.Country) 
-                && Start.Equals(visaInfo.Start) 
+            return (Country.Equals(visaInfo.Country)
+                && Start.Equals(visaInfo.Start)
                 && End.Equals(visaInfo.End));
         }
 
         public override int GetHashCode()
         {
-            return Id ^ Country.GetHashCode() 
-                ^ Start.GetHashCode() 
+            return Id ^ Country.GetHashCode()
+                ^ Start.GetHashCode()
                 ^ End.GetHashCode();
         }
     }

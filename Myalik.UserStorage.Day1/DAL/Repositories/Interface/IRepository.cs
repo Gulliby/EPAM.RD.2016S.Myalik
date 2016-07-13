@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace DAL.Repositories.Interface
 {
     public interface IRepository<TEntity> 
-        where TEntity : IEntity 
+        where TEntity : IDalEntity 
     {
         #region Interface Methods
 

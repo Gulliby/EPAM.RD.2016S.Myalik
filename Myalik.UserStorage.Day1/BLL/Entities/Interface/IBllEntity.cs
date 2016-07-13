@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Entities.Interface
+namespace BLL.Entities.Interface
 {
-    public interface IEntity
+    public interface IBllEnitity
     {
-        int Id { get; set; }       
+        int Id { get; }
     }
 }

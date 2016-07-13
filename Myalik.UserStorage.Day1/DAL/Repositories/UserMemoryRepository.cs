@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class UserMemoryRepository : MemoryRepository<User>, IUserMemoryRepository
+    public class UserMemoryRepository : MemoryRepository<DalUser>, IUserRepository
     {
-        public void AddVisaByUserId(int userId, VisaInfo visaInfo)
+        public void AddVisaByUserId(int userId, DalVisaInfo visaInfo)
         {
             entities.FirstOrDefault(e => e.Id == userId);
         }
 
-        public void RemoveVisaByUserId(int userId, VisaInfo visaInfo)
+        public void RemoveVisaByUserId(int userId, DalVisaInfo visaInfo)
         {
             entities.FirstOrDefault(e => e.Id == userId);
         }
