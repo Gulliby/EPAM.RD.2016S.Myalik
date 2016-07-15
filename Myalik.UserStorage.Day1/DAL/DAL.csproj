@@ -45,14 +45,18 @@
     <Compile Include="Entities\Interface\IDalEntity.cs" />
     <Compile Include="Entities\DalUser.cs" />
     <Compile Include="Entities\DalVisaInfo.cs" />
-    <Compile Include="Generator\IdGenerator.cs" />
-    <Compile Include="Generator\Interface\IIdGenerator.cs" />
-    <Compile Include="Repositories\Interface\IMemoryRepository.cs" />
+    <Compile Include="Repositories\Interface\IXmlMemoryRepository.cs" />
     <Compile Include="Repositories\Interface\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Interface\IUserRepository.cs" />
-    <Compile Include="Repositories\MemoryRepository.cs" />
+    <Compile Include="Repositories\XmlMemoryRepository.cs" />
     <Compile Include="Repositories\UserMemoryRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Generator\Generator.csproj">
+      <Project>{367ab3a6-4a57-498e-8689-559d80f2ca3a}</Project>
+      <Name>Generator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

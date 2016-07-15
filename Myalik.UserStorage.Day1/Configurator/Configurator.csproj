@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{60178A0D-B54A-4567-9976-5564CE47AB66}</ProjectGuid>
+    <ProjectGuid>{308C1858-3C39-445A-AB43-96931F28A5EE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BLL</RootNamespace>
-    <AssemblyName>BLL</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>Configurator</RootNamespace>
+    <AssemblyName>Configurator</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -30,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=5.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,31 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\BllCountry.cs" />
-    <Compile Include="Entities\BllGender.cs" />
-    <Compile Include="Entities\BllUser.cs" />
-    <Compile Include="Entities\BllVisaInfo.cs" />
-    <Compile Include="Entities\Interface\IBllEntity.cs" />
-    <Compile Include="Event\DataEventArgs.cs" />
+    <Compile Include="Configurators\Configurator.cs" />
+    <Compile Include="Configurators\Interface\IConfigurator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Search\SearchInfoEntity.cs" />
-    <Compile Include="Services\Interface\INotifyService.cs" />
-    <Compile Include="Services\Interface\IService.cs" />
-    <Compile Include="Services\Interface\ISearchable.cs" />
-    <Compile Include="Services\SlaveService.cs" />
-    <Compile Include="Services\UserSearchService.cs" />
-    <Compile Include="Services\MasterService.cs" />
-    <Compile Include="Validators\Interface\IValidator.cs" />
-    <Compile Include="Validators\UserValidator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{60178a0d-b54a-4567-9976-5564ce47ab66}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{D732EE2C-F6D1-46B9-8C7E-652A38990FD0}</Project>
+      <Project>{d732ee2c-f6d1-46b9-8c7e-652a38990fd0}</Project>
       <Name>DAL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -20,7 +20,7 @@ namespace DAL.Entities
 
         public DateTime DayOfBirth { get; set; }
 
-        public IEnumerable<DalVisaInfo> Visa { get; set; }
+        public IList<DalVisaInfo> Visa { get; set; }
 
     }
 }

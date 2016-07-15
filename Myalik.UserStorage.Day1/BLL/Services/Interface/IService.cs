@@ -8,15 +8,10 @@ using System.Threading.Tasks;
 
 namespace BLL.Services.Interface
 {
-    public interface IService<TEntity>
+    public interface IService<TEntity> : ISearchable<TEntity>
         where TEntity : IBllEnitity
     {
-        int AddEntity(TEntity entity);
-
-        IEnumerable<TEntity> SearchEntitiesManyByPredicate(SearchInfoEntity searchInfoEntity);
-
-        TEntity SearchEntityByPredicate(SearchInfoEntity searchInfoEntity);
-
+        int AddEntity(TEntity entity);       
         void DeleteEntity(int id);
     }
 }

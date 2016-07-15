@@ -7,30 +7,40 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using DAL.Entities.Interface;
 using DAL.Repositories;
+using Generator.Exceptions;
+using Generator.Generators;
+using Generator.Generators.Interface;
 
 namespace DAL.Repositories
 {
-    public class MemoryRepository<TEntity>: IMemoryRepository<TEntity> 
+    public class XmlMemoryRepository<TEntity>: IXmlMemoryRepository<TEntity> 
         where TEntity: IDalEntity
     {
 
         protected IList<TEntity> entities;
-        public IEnumerable<TEntity> Entities
-        {
-            get { return entities; }
-        }
 
-        public MemoryRepository()
+        private readonly IEnumerator<int> generator;
+
+        public IEnumerable<TEntity> Entities => entities;
+
+        public XmlMemoryRepository()
         {
             entities = new List<TEntity>();
+            generator = new IdGenerator().Generate().GetEnumerator();
         }
+
+        public XmlMemoryRepository(IGenerator generator) : this()
+        {
+            this.generator = generator.Generate().GetEnumerator();
+        } 
 
         public int Add(TEntity entity)
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
+            if (!generator.MoveNext()) throw new IndexCantBeCreated();
+            entity.Id = generator.Current;
             entities.Add(entity);
-            entities.Id = 
             return entity.Id;
         }
 
@@ -47,6 +57,21 @@ namespace DAL.Repositories
         public IEnumerable<TEntity> SearchManyByPredicate(Expression<Func<TEntity, bool>> expression)
         {
             return entities.AsQueryable().Where(expression);
+        }
+
+        public void SaveToXml()
+        {
+            
+        }
+
+        public void LoadFromXml()
+        {
+            
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

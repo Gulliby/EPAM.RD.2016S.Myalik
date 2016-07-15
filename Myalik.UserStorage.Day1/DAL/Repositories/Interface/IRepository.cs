@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories.Interface
 {
-    public interface IRepository<TEntity> 
+    public interface IRepository<TEntity> : ICloneable
         where TEntity : IDalEntity 
     {
         #region Interface Methods

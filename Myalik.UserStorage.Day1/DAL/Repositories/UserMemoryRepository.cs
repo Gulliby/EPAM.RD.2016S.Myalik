@@ -8,16 +8,18 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class UserMemoryRepository : MemoryRepository<DalUser>, IUserRepository
+    public class UserMemoryRepository : XmlMemoryRepository<DalUser>, IUserRepository
     {
         public void AddVisaByUserId(int userId, DalVisaInfo visaInfo)
         {
-            entities.FirstOrDefault(e => e.Id == userId);
+            var firstOrDefault = entities.FirstOrDefault(e => e.Id == userId);
+            firstOrDefault?.Visa.Add(visaInfo);
         }
 
         public void RemoveVisaByUserId(int userId, DalVisaInfo visaInfo)
         {
-            entities.FirstOrDefault(e => e.Id == userId);
+            var firstOrDefault = entities.FirstOrDefault(e => e.Id == userId);
+            firstOrDefault?.Visa.Add(visaInfo);
         }
     }
 }

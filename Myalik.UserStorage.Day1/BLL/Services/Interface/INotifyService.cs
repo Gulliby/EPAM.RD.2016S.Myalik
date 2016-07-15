@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Generator.Interface
+namespace BLL.Services.Interface
 {
-    public interface IIdGenerator
+    public interface INotifyService
     {
-        IEnumerable<int> Generate();
+        void Notify();
     }
 }
