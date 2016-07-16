@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Entities
 {
+    [Serializable]
     public enum DalGender
     {
         Male = 1,

@@ -1,10 +1,13 @@
 ﻿using DAL.Repositories.Interface;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using System.Xml.Serialization;
+using DAL.Container;
 using DAL.Entities.Interface;
 using DAL.Repositories;
 using Generator.Exceptions;
@@ -17,11 +20,23 @@ namespace DAL.Repositories
         where TEntity: IDalEntity
     {
 
+        #region Fields
+
         protected IList<TEntity> entities;
 
-        private readonly IEnumerator<int> generator;
+        private readonly string xmlFileName;
+
+        private IEnumerator<int> generator;
+
+        #endregion
+
+        #region Properties
 
         public IEnumerable<TEntity> Entities => entities;
+
+        #endregion
+
+        #region Constructors
 
         public XmlMemoryRepository()
         {
@@ -31,8 +46,23 @@ namespace DAL.Repositories
 
         public XmlMemoryRepository(IGenerator generator) : this()
         {
+            if (generator == null)
+                throw new ArgumentNullException(nameof(generator));
             this.generator = generator.Generate().GetEnumerator();
-        } 
+            xmlFileName = "repository.xml";
+        }
+
+        public XmlMemoryRepository(IGenerator generator, string xmlFileName) : this(generator)
+        {
+            if (string.IsNullOrEmpty(xmlFileName))
+                throw new ArgumentNullException(nameof(xmlFileName));
+            this.xmlFileName = xmlFileName;
+
+        }
+
+        #endregion
+
+        #region Public Methods Repository Interface
 
         public int Add(TEntity entity)
         {
@@ -59,19 +89,45 @@ namespace DAL.Repositories
             return entities.AsQueryable().Where(expression);
         }
 
+        #endregion
+
+        #region Public Methods XmlRepository Interface
+
         public void SaveToXml()
         {
-            
+            var sContainer = new SerializableContainer<TEntity>
+            {
+                Users = entities,
+                Generator = generator
+            };
+            var formatter = new XmlSerializer(typeof(SerializableContainer<TEntity>));
+            using (var fs = new FileStream(xmlFileName, FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, sContainer);
+            }
         }
 
         public void LoadFromXml()
         {
-            
+            var formatter = new XmlSerializer(typeof(IUserRepository));
+            using (var fs = new FileStream(xmlFileName, FileMode.OpenOrCreate))
+            {     
+                var sContainer = (SerializableContainer<TEntity>)formatter.Deserialize(fs);
+                entities = sContainer.Users;
+                generator = sContainer.Generator;
+            }
         }
+
+        #endregion
+
+        #region Clonable
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            return new XmlMemoryRepository<TEntity>(){
         }
+
+        #endregion
+
     }
 }

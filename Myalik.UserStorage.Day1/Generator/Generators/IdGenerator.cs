@@ -7,19 +7,28 @@ using Generator.Generators.Interface;
 
 namespace Generator.Generators
 {
+    [Serializable]
     public class IdGenerator : IGenerator
     {
+        private int generatedId;
         private static readonly object syncRoot = new object();
-
         public IEnumerable<int> Generate()
         {
-            for (var i = 0; i < int.MaxValue; i++)
+            for (generatedId = 0; generatedId < int.MaxValue; generatedId++)
             {
                 lock (syncRoot)
                 {
-                    yield return i;
+                    yield return generatedId;
                 }
             }
+        }
+
+        public object Clone()
+        {
+            return new IdGenerator
+            {
+                generatedId = generatedId
+            };
         }
     }
 }

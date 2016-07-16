@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Generator.Generators.Interface
 {
-    public interface IGenerator
+    public interface IGenerator : ICloneable
     {
         IEnumerable<int> Generate();
     }

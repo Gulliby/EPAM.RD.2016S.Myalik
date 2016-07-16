@@ -1,7 +1,9 @@
 ﻿using BLL.Services.Interface;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml.Serialization;
 using BLL.Search;
 using BLL.Entities;
 using DAL.Repositories.Interface;
@@ -15,13 +17,13 @@ namespace BLL.Services
 {
     public class MasterService : UserSearchService, IService<BllUser>, INotifyService
     {
-
+        
         private readonly IMapper mapper;
         private readonly IUserRepository userRepository;
         private readonly IValidator<BllUser> validator;
         public event EventHandler<DataEventArgs> OnDataChange = delegate { };
-
-        public MasterService(IUserRepository userRepository,IValidator<BllUser> validator) : base(userRepository)
+        
+        public MasterService(IUserRepository userRepository, IValidator<BllUser> validator) : base(userRepository)
         {
             if (userRepository == null)
                 throw new ArgumentNullException(nameof(userRepository));
@@ -33,6 +35,7 @@ namespace BLL.Services
             }).CreateMapper();
             this.validator = validator;
         }
+
 
         public int AddEntity(BllUser entity)
         {
@@ -54,7 +57,6 @@ namespace BLL.Services
         {
             OnOnDataChange(new DataEventArgs((IUserRepository)userRepository.Clone()));
         }
-
 
         protected virtual void OnOnDataChange(DataEventArgs args)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Entities.Interface
 {
-    public interface IDalEntity
+    public interface IDalEntity : ICloneable
     {
         int Id { get; set; }       
     }
