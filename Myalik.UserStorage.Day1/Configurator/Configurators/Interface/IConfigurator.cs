@@ -9,6 +9,6 @@ namespace Configurator.Configurators.Interface
 {
     public interface IConfigurator
     {
-        void Config(out MasterService masterService, out IList<SlaveService> slaveServices);
+        void Config(int countOfMasterServices, int countOfSlaveServices, string filePath, out MasterService masterService, out IList<SlaveService> slaveServices);
     }
 }

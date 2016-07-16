@@ -13,13 +13,21 @@ namespace Configurator.Configurators
 {
     public class Configurator : IConfigurator
     {
-        public void Config(out MasterService masterService, out IList<SlaveService> slaveServices)
+        public void Config(int countOfMasterServices, int countOfSlaveServices, string filePath, 
+            out MasterService masterService, out IList<SlaveService> slaveServices)
         {
+            if (countOfMasterServices > 1 && countOfMasterServices <= 0)
+                throw new ArgumentException(nameof(countOfMasterServices));
+            if (countOfSlaveServices <= 0)
+                throw new ArgumentException();
+
             var userRepository = new UserMemoryRepository();
             var userValidator = new UserValidator();
+
             masterService = new MasterService(userRepository, userValidator);
             slaveServices = new List<SlaveService>();
-            for (var i = 0; i < 10; i++)
+
+            for (var i = 0; i < countOfSlaveServices; i++)
             {
                 var slaveService = new SlaveService((IUserRepository) userRepository.Clone());
                 masterService.OnDataChange += slaveService.DataChanged;

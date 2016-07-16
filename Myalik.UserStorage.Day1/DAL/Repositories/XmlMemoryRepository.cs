@@ -38,28 +38,22 @@ namespace DAL.Repositories
 
         #region Constructors
 
-        public XmlMemoryRepository()
+        public XmlMemoryRepository(string xmlFileName)
         {
             entities = new List<TEntity>();
             generator = new IdGenerator().Generate().GetEnumerator();
+            this.xmlFileName = !string.IsNullOrEmpty(xmlFileName) ? xmlFileName : "repository.xml";
+            LoadFromXml();
         }
 
-        public XmlMemoryRepository(IGenerator generator) : this()
+        public XmlMemoryRepository(IGenerator generator, string xmlFileName) : this(xmlFileName)
         {
             if (generator == null)
                 throw new ArgumentNullException(nameof(generator));
             this.generator = generator.Generate().GetEnumerator();
-            xmlFileName = "repository.xml";
         }
 
-        public XmlMemoryRepository(IGenerator generator, string xmlFileName) : this(generator)
-        {
-            if (string.IsNullOrEmpty(xmlFileName))
-                throw new ArgumentNullException(nameof(xmlFileName));
-            this.xmlFileName = xmlFileName;
-
-        }
-
+  
         #endregion
 
         #region Public Methods Repository Interface
@@ -109,6 +103,8 @@ namespace DAL.Repositories
 
         public void LoadFromXml()
         {
+            if (!File.Exists(xmlFileName))
+                return;
             var formatter = new XmlSerializer(typeof(IUserRepository));
             using (var fs = new FileStream(xmlFileName, FileMode.OpenOrCreate))
             {     
@@ -124,7 +120,11 @@ namespace DAL.Repositories
 
         public object Clone()
         {
-            return new XmlMemoryRepository<TEntity>(){
+            return new XmlMemoryRepository<TEntity>(string.Copy(xmlFileName))
+            {
+                entities = entities.Select(item => (TEntity)item.Clone()).ToList(),
+                generator = generator
+            };
         }
 
         #endregion
