@@ -62,5 +62,10 @@ namespace BLL.Services
         {
             OnDataChange(this, args);
         }
+
+        public void Commit()
+        {
+            userRepository.SaveToXml();
+        }
     }
 }

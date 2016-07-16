@@ -16,7 +16,7 @@ using Generator.Generators.Interface;
 
 namespace DAL.Repositories
 {
-    public class XmlMemoryRepository<TEntity>: IXmlMemoryRepository<TEntity> 
+    public class MemoryRepository<TEntity>: IMemoryRepository<TEntity> 
         where TEntity: IDalEntity
     {
 
@@ -24,9 +24,7 @@ namespace DAL.Repositories
 
         protected IList<TEntity> entities;
 
-        private readonly string xmlFileName;
-
-        private IEnumerator<int> generator;
+        protected IEnumerator<int> generator;
 
         #endregion
 
@@ -38,15 +36,13 @@ namespace DAL.Repositories
 
         #region Constructors
 
-        public XmlMemoryRepository(string xmlFileName)
+        public MemoryRepository()
         {
             entities = new List<TEntity>();
-            generator = new IdGenerator().Generate().GetEnumerator();
-            this.xmlFileName = !string.IsNullOrEmpty(xmlFileName) ? xmlFileName : "repository.xml";
-            LoadFromXml();
+            generator = new IdGenerator(0).Generate().GetEnumerator();
         }
 
-        public XmlMemoryRepository(IGenerator generator, string xmlFileName) : this(xmlFileName)
+        public MemoryRepository(IGenerator generator) 
         {
             if (generator == null)
                 throw new ArgumentNullException(nameof(generator));
@@ -62,7 +58,7 @@ namespace DAL.Repositories
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
-            if (!generator.MoveNext()) throw new IndexCantBeCreated();
+            if (!generator.MoveNext()) throw new IndexCantBeCreatedException();
             entity.Id = generator.Current;
             entities.Add(entity);
             return entity.Id;
@@ -85,42 +81,11 @@ namespace DAL.Repositories
 
         #endregion
 
-        #region Public Methods XmlRepository Interface
-
-        public void SaveToXml()
-        {
-            var sContainer = new SerializableContainer<TEntity>
-            {
-                Users = entities,
-                Generator = generator
-            };
-            var formatter = new XmlSerializer(typeof(SerializableContainer<TEntity>));
-            using (var fs = new FileStream(xmlFileName, FileMode.OpenOrCreate))
-            {
-                formatter.Serialize(fs, sContainer);
-            }
-        }
-
-        public void LoadFromXml()
-        {
-            if (!File.Exists(xmlFileName))
-                return;
-            var formatter = new XmlSerializer(typeof(IUserRepository));
-            using (var fs = new FileStream(xmlFileName, FileMode.OpenOrCreate))
-            {     
-                var sContainer = (SerializableContainer<TEntity>)formatter.Deserialize(fs);
-                entities = sContainer.Users;
-                generator = sContainer.Generator;
-            }
-        }
-
-        #endregion
-
         #region Clonable
 
         public object Clone()
         {
-            return new XmlMemoryRepository<TEntity>(string.Copy(xmlFileName))
+            return new MemoryRepository<TEntity>
             {
                 entities = entities.Select(item => (TEntity)item.Clone()).ToList(),
                 generator = generator

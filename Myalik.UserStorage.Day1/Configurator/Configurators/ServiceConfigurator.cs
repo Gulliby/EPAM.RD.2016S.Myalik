@@ -11,7 +11,7 @@ using DAL.Repositories.Interface;
 
 namespace Configurator.Configurators
 {
-    public class Configurator : IConfigurator
+    public class ServiceConfigurator : IConfigurator
     {
         public void Config(int countOfMasterServices, int countOfSlaveServices, string filePath, 
             out MasterService masterService, out IList<SlaveService> slaveServices)
@@ -21,7 +21,7 @@ namespace Configurator.Configurators
             if (countOfSlaveServices <= 0)
                 throw new ArgumentException();
 
-            var userRepository = new UserMemoryRepository();
+            var userRepository = new UserXmlMemoryRepository(filePath);
             var userValidator = new UserValidator();
 
             masterService = new MasterService(userRepository, userValidator);

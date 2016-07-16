@@ -21,7 +21,7 @@ namespace DAL.Entities
 
         public DateTime DayOfBirth { get; set; }
 
-        public IList<DalVisaInfo> Visa { get; set; }
+        public List<DalVisaInfo> Visa { get; set; }
 
         public object Clone()
         {
