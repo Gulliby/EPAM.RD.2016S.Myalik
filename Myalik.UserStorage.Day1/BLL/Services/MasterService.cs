@@ -11,6 +11,7 @@ using DAL.Entities;
 using AutoMapper;
 using BLL.Entities.Interface;
 using BLL.Event;
+using BLL.MainBllLogger;
 using BLL.Validators.Interface;
 
 namespace BLL.Services
@@ -27,6 +28,8 @@ namespace BLL.Services
         {
             if (userRepository == null)
                 throw new ArgumentNullException(nameof(userRepository));
+            if (validator == null)
+                throw new ArgumentNullException(nameof(validator));
             this.userRepository = userRepository;
             mapper = new MapperConfiguration(cfg =>
             {
@@ -43,14 +46,19 @@ namespace BLL.Services
                 throw new ArgumentNullException(nameof(entity));
             if (!validator.Validate(entity)) throw new ArgumentException(nameof(entity));
             var retId = userRepository.Add(mapper.Map<BllUser, DalUser>(entity));
-            if (retId != 0)
-                Notify(); 
+            if (retId == 0) return retId;
+            Notify();
+            if (BllLogger.BooleanSwitch)
+                BllLogger.Instance.Info("User with Name = {0} and LastName = {1} just added", entity.Name, entity.LastName);
             return retId;
         }
 
         public void DeleteEntity(int id)
         {
             userRepository.Delete(id);
+            if (BllLogger.BooleanSwitch)
+                BllLogger.Instance.Info("User with Id = {0} just deleted", id);
+            Notify();
         }
 
         public void Notify()

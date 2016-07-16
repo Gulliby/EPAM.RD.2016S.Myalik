@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using NLog;
 
-namespace BLL.BllLogger
+namespace BLL.MainBllLogger
 {
     public static class BllLogger
     {
         private static volatile Logger instance;
         private static readonly object syncRoot = new object();
+
+        public static bool BooleanSwitch { get; set; }
 
         public static Logger Instance
         {

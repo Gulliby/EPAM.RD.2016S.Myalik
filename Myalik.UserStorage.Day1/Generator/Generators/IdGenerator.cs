@@ -31,6 +31,7 @@ namespace Generator.Generators
             lock (syncRoot)
             {
                 generatedId = idPost;
+                generatedId++;
             }
         }
 

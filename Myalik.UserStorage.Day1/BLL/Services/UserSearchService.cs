@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using BLL.Entities;
+using BLL.MainBllLogger;
 using BLL.Services.Interface;
 using DAL.Entities;
 using DAL.Repositories.Interface;
@@ -27,20 +28,29 @@ namespace BLL.Services
 
         public IEnumerable<BllUser> SearchEntityByName(string name)
         {
-            return userRepository.SearchManyByPredicate(entity => entity.Name == name)
+            var entities = userRepository.SearchManyByPredicate(entity => entity.Name == name)
                 .Select(mapper.Map<DalUser, BllUser>);
+            if (BllLogger.BooleanSwitch)
+                BllLogger.Instance.Info("Processed search query with parameters: name = {0}",name);
+            return entities;
         }
 
         public IEnumerable<BllUser> SearchEntityByLastName(string lastName)
         {
-            return userRepository.SearchManyByPredicate(entity => entity.LastName == lastName)
+            var entities = userRepository.SearchManyByPredicate(entity => entity.LastName == lastName)
                 .Select(mapper.Map<DalUser, BllUser>);
+            if (BllLogger.BooleanSwitch)
+                BllLogger.Instance.Info("Processed search query with parameters: lastName = {0}", lastName);
+            return entities;
         }
 
         public IEnumerable<BllUser> SearchEntityByNameAndLastName(string name, string lastName)
         {
-            return userRepository.SearchManyByPredicate(entity => (entity.LastName == lastName) && (entity.Name == name))
+            var entities = userRepository.SearchManyByPredicate(entity => (entity.LastName == lastName) && (entity.Name == name))
                 .Select(mapper.Map<DalUser, BllUser>);
+            if (BllLogger.BooleanSwitch)
+                BllLogger.Instance.Info("Processed search query with parameters: name = {0}, lastName = {1}", name, lastName);
+            return entities;
         }
     }
 }

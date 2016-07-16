@@ -30,7 +30,7 @@ namespace DAL.Repositories
         public void RemoveVisaByUserId(int userId, DalVisaInfo visaInfo)
         {
             var firstOrDefault = entities.FirstOrDefault(e => e.Id == userId);
-            firstOrDefault?.Visa.Add(visaInfo);
+            firstOrDefault?.Visa.Remove(visaInfo);
         }
 
         public void SaveToXml()
@@ -41,7 +41,7 @@ namespace DAL.Repositories
                 IdPos = generator.Current,
             };
             var formatter = new XmlSerializer(typeof(UserSerializableContainer));
-            using (var fs = new FileStream(xmlFileName, FileMode.OpenOrCreate))
+            using (var fs = new FileStream(xmlFileName, FileMode.Create))
             {
                 formatter.Serialize(fs, sContainer);
             }

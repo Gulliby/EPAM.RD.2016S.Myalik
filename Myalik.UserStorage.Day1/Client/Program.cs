@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BLL.Entities;
+using BLL.MainBllLogger;
 using BLL.Services;
 using Configurator.Configurators;
 
@@ -17,6 +18,7 @@ namespace Client
             IList<SlaveService> slaveServices;
             var configurator = new ServiceConfigurator();
             configurator.Config(1, 4, "file.xml", out masterService, out slaveServices);
+            BllLogger.BooleanSwitch = true;
             masterService.AddEntity(new BllUser
             {
                 DayOfBirth = DateTime.Now,
@@ -24,7 +26,7 @@ namespace Client
                 LastName = "Ilya",
                 Name = "Myalik",
                 Visa = new List<BllVisaInfo>(),
-            });
+            });           
             masterService.Commit();
         }
     }

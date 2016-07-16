@@ -11,11 +11,11 @@ namespace BLL.Entities
     {
         public int Id { get; }
 
-        public BllCountry Country { get; }
+        public BllCountry Country { get; set; }
 
-        public DateTime Start { get; }
+        public DateTime Start { get; set; }
 
-        public DateTime End { get; }
+        public DateTime End { get; set; }
 
         public override bool Equals(object obj)
         {

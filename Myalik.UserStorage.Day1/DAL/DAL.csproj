@@ -52,7 +52,7 @@
     <Compile Include="Repositories\Interface\IUserRepository.cs" />
     <Compile Include="Repositories\Interface\IXmlRepository.cs" />
     <Compile Include="Repositories\MemoryRepository.cs" />
-    <Compile Include="Repositories\UserMemoryRepository.cs" />
+    <Compile Include="Repositories\UserXmlMemoryRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Generator\Generator.csproj">
