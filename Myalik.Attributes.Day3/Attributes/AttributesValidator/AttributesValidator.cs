@@ -22,16 +22,12 @@ namespace Attributes.AttributesValidator
                 .Where(e => e.GetCustomAttributes(typeof(ValidationAttribute)).Count() != 0);
             var fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(e => e.GetCustomAttributes(typeof(ValidationAttribute)).Count() != 0);
-            foreach (var prop in props)
-            {
-                var validateProp = ValidateProperty(user, prop, ref results);
-                result = result && validateProp;
-            }
-            foreach (var field in fields)
-            {
-                var validateField = ValidateField(user, field, ref results);
-                result = result && validateField;
-            }
+            foreach (var property in props)
+                result = result && ValidateProperty(user, property, ref results);
+            
+            foreach (var field in fields)       
+                result = result && ValidateField(user, field, ref results);
+            
             return result;
         }
 
