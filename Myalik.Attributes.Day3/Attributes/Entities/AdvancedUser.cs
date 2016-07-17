@@ -16,5 +16,13 @@ namespace Attributes.Entities
         {
             _externalId = externalId;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            var castObj = obj as AdvancedUser;
+            return castObj != null && (base.Equals(obj) && ExternalId == castObj.ExternalId);
+        }
     }
 }

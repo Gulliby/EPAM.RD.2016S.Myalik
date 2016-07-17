@@ -36,5 +36,12 @@ namespace Attributes.Entities
         {
             _id = id;
         }
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            var castObj = obj as User;
+            return castObj != null && (Id == castObj.Id && FirstName == castObj.FirstName && LastName == castObj.LastName);
+        }
     }
 }

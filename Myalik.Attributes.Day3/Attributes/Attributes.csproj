@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collector\AdvanceUserCollector.cs" />
+    <Compile Include="Collector\Interface\ICollector.cs" />
+    <Compile Include="Collector\UserCollector.cs" />
     <Compile Include="Entities\AdvancedUser.cs" />
     <Compile Include="CustomAttributes\InstantiateAdvancedUserAttribute.cs" />
     <Compile Include="CustomAttributes\InstantiateAttribute.cs" />
@@ -49,6 +52,8 @@
     <Compile Include="CustomValidationAttributes\StringValidatorAttribute.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AttributesValidator\Interface\IValidator.cs" />
+    <Compile Include="AttributesValidator\AttributesValidator.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
