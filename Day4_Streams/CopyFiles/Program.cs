@@ -10,14 +10,14 @@ namespace FileStreams
     {
         public static void Main(string[] args)
         {
-            //if (args.Length < 2)
-            //{
-            //    Console.WriteLine("Arguments: <source> <destination>");
-            //    return;
-            //}
+            if (args.Length < 2)
+            {
+                Console.WriteLine("Arguments: <source> <destination>");
+                return;
+            }
 
-            string source = "TextFile.txt";//args[0];
-            string destin = "destFile.txt";//args[1];
+            var source = args[0];
+            var destin = args[1];
 
             ByteCopy(source, destin);
             BlockCopy(source, destin);
@@ -116,7 +116,7 @@ namespace FileStreams
                 } while (line != null);
             }
 
-            Console.WriteLine("MemoryBufferCoppy(): chars in StringBuilder {0}", stringBuilder.Length);
+            Console.WriteLine("MemoryBufferCopy(): chars in StringBuilder {0}", stringBuilder.Length);
 
             const int blockSize = 1024;
 
