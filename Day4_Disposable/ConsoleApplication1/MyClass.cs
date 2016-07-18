@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace ConsoleApplication1
 {
@@ -32,12 +33,29 @@ namespace ConsoleApplication1
 
         private void Dispose(bool disposing)
         {
-            // TODO: Add your implementations here.
+            if (_disposed)
+                return;
+            if (disposing)       
+                _resource = null;              
+            _buffer = IntPtr.Zero;
+            _disposed = true;
         }
 
         public void DoSomething()
         {
             // NOTE: Manupulation with _buffer and _resource in this line.
+            if (_resource.IsInvalid) 
+                throw new ObjectDisposedException(nameof(_resource));
+            using (var file = new FileStream("testname", FileMode.Create, FileAccess.Write))
+            {
+                unsafe
+                {
+                    var ustream = new UnmanagedMemoryStream((byte*)_buffer, 0);
+                    ustream.CopyTo(file);
+                    file.Close();
+                    ustream.Close();
+                }
+            }
         }
     }
 }
