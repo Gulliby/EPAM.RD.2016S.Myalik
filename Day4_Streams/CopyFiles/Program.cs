@@ -116,7 +116,7 @@ namespace FileStreams
                 } while (line != null);
             }
 
-            Console.WriteLine("MemoryBufferCopy(): chars in StringBuilder {0}", stringBuilder.Length);
+            Console.WriteLine("MemoryBufferCoppy(): chars in StringBuilder {0}", stringBuilder.Length);
 
             const int blockSize = 1024;
 
