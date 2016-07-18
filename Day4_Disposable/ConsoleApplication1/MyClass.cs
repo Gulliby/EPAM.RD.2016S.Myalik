@@ -29,6 +29,7 @@ namespace ConsoleApplication1
         public virtual void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         private void Dispose(bool disposing)
@@ -36,16 +37,16 @@ namespace ConsoleApplication1
             if (_disposed)
                 return;
             if (disposing)       
-                _resource = null;              
+                _resource.Dispose();              
             _buffer = IntPtr.Zero;
             _disposed = true;
         }
 
         public void DoSomething()
-        {
-            // NOTE: Manupulation with _buffer and _resource in this line.
+        {         
             if (_resource.IsInvalid) 
                 throw new ObjectDisposedException(nameof(_resource));
+            // NOTE: Manupulation with _buffer and _resource in this line.
             using (var file = new FileStream("testname", FileMode.Create, FileAccess.Write))
             {
                 unsafe
