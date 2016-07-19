@@ -12,7 +12,7 @@ namespace BLL.MainBllLogger
         private static volatile Logger instance;
         private static readonly object syncRoot = new object();
 
-        public static bool BooleanSwitch { get; set; }
+        public static bool BooleanSwitch { get; set; } = true;
 
         public static Logger Instance
         {

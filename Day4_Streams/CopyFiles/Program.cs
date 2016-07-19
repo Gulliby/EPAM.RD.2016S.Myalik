@@ -10,14 +10,14 @@ namespace FileStreams
     {
         public static void Main(string[] args)
         {
-            if (args.Length < 2)
-            {
-                Console.WriteLine("Arguments: <source> <destination>");
-                return;
-            }
+            //if (args.Length < 2)
+            //{
+            //    Console.WriteLine("Arguments: <source> <destination>");
+            //    return;
+            //}
 
-            var source = args[0];
-            var destin = args[1];
+            var source = "TextFile.txt";
+            var destin = "DestFile.txt";
 
             ByteCopy(source, destin);
             BlockCopy(source, destin);
@@ -132,9 +132,9 @@ namespace FileStreams
                 {
                     bytesRead = stringReader.ReadBlock(buffer, 0, buffer.Length); // TODO: Read block from stringReader to buffer.
                     streamWriter.Write(buffer); // TODO: Write buffer to streamWriter.
-                    var memBuffer = memoryStream.GetBuffer();
-                    destinStream.Write(memBuffer, 0, memBuffer.Length);
+                    streamWriter.Flush();
                     memoryStream.Seek(0, SeekOrigin.Begin);
+                    destinStream.Write(memoryStream.GetBuffer(), 0, bytesRead);     
                     // TODO: After implementing everythin check the content of NewTextFile. What's wrong with it, and how this may be fixed?
                     // TODO: write memoryStream.GetBuffer() content to destination stream.
                 }
