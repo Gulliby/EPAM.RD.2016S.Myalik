@@ -46,7 +46,7 @@ namespace FileStreams
         public static void BlockCopy(string source, string destin)
         {
             using (var sourceStream = new FileStream(source, FileMode.Open))
-            using (var destinStream = new FileStream("BlockCopy"+destin, FileMode.Create))
+            using (var destinStream = new FileStream("BlockCopy" + destin, FileMode.Create))
             {
                 byte[] buffer = new byte[1024];
                 int bytesRead = 0;
@@ -66,7 +66,7 @@ namespace FileStreams
             int linesCount = 0;
 
             using (var sourceStream = new FileStream(source, FileMode.Open))
-            using (var destinStream = new FileStream("LineCopy"+destin, FileMode.Create))
+            using (var destinStream = new FileStream("LineCopy" + destin, FileMode.Create))
             {
                 using (var streamReader = new StreamReader(sourceStream))
                 using (var streamWriter = new StreamWriter(destinStream))
