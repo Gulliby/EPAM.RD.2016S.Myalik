@@ -101,10 +101,12 @@ namespace UnitTestProject1
         public void SortByName()
         {
             var actualDataFirstList = new List<User>();
-            var expectedData = userListFirst[3];
+            var expectedData = userListFirst[4];
 
             //ToDo Add code first list
-
+            List<User> result = userListFirst.Select(e => e).ToList();
+            result.Sort((x, y) => x.Name.CompareTo(y.Name));
+            actualDataFirstList.AddRange(result);
             Assert.IsTrue(actualDataFirstList[0].Equals(expectedData));
         }
 
@@ -112,10 +114,12 @@ namespace UnitTestProject1
         public void SortByNameDescending()
         {
             var actualDataSecondList = new List<User>();
-            var expectedData = userListFirst[4];
+            var expectedData = userListFirst[0];
 
             //ToDo Add code first list
-
+            List<User> result = userListFirst.Select(e => e).ToList();
+            result.Sort((x, y) => y.Name.CompareTo(x.Name));
+            actualDataSecondList.AddRange(result);
             Assert.IsTrue(actualDataSecondList[0].Equals(expectedData));
             
         }
@@ -124,10 +128,12 @@ namespace UnitTestProject1
         public void SortByNameAndAge()
         {
             var actualDataSecondList = new List<User>();
-            var expectedData = userListSecond[5];
+            var expectedData = userListSecond[4];
 
             //ToDo Add code second list
-
+            List<User> result = userListSecond.Select(e => e).ToList();
+            result.Sort((x, y) => { if (x.Name == y.Name) return x.Age.CompareTo(y.Age); else return x.Name.CompareTo(y.Name); });
+            actualDataSecondList.AddRange(result);
             Assert.IsTrue(actualDataSecondList[0].Equals(expectedData));
         }
 
@@ -137,8 +143,8 @@ namespace UnitTestProject1
             var actualDataSecondList = new List<User>();
             var expectedData = new List<User> {userListSecond[0], userListSecond[1], userListSecond[3], userListSecond[4],userListSecond[5]};
 
-            //ToDo Add code second list
-
+            var result = userListSecond.Distinct();
+            actualDataSecondList.AddRange(result);
             CollectionAssert.AreEqual(expectedData, actualDataSecondList);
         }
 
@@ -148,9 +154,9 @@ namespace UnitTestProject1
             var actualData = new List<User>();
             var expectedData = new List<User> { userListFirst[0], userListFirst[2], userListFirst[3] };
 
-            //ToDo Add code first list
+            var result = userListFirst.Except(userListSecond);
 
-            CollectionAssert.AreEqual(expectedData, actualData);
+            CollectionAssert.AreEqual(expectedData, result.ToList());
         }
 
         [TestMethod]
@@ -159,9 +165,9 @@ namespace UnitTestProject1
             var actualData = new List<User>();
             var expectedData = new List<User> { userListSecond[0], userListSecond[2] };
 
-            //ToDo Add code for second list
+            var result = userListSecond.Where(e => e.Name == "Max");
 
-            CollectionAssert.AreEqual(expectedData, actualData);
+            CollectionAssert.AreEqual(expectedData, result.ToList());
         }
 
         [TestMethod]
@@ -171,11 +177,12 @@ namespace UnitTestProject1
 
             //name max 
             //ToDo Add code for second list
-
+            isContain = userListSecond.Contains(userListSecond.FirstOrDefault(e => e.Name == "Max"));
             Assert.IsTrue(isContain);
 
             // name obama
             //ToDo add code for second list
+            isContain = userListSecond.Contains(userListSecond.FirstOrDefault(e => e.Name == "Obama"));
             Assert.IsFalse(isContain);
         }
 
@@ -186,8 +193,8 @@ namespace UnitTestProject1
 
             //name max 
             //ToDo Add code for second list
-
-            Assert.IsTrue(isAll);
+            isAll = userListSecond.All(e => e.Name == "Max");
+            Assert.IsFalse(isAll);
         }
 
         [TestMethod]
@@ -199,6 +206,8 @@ namespace UnitTestProject1
             {
                 //ToDo Add code for second list
                 //name Max
+                userListSecond.Single(e => e.Name == "Max");
+                Assert.Fail();
             }
             catch (InvalidOperationException ie)
             {
@@ -208,6 +217,7 @@ namespace UnitTestProject1
             {
                 Assert.Fail("Unexpected exception of type {0} caught: {1}", e.GetType(), e.Message);
             }
+            
         }
 
         [TestMethod]
@@ -219,6 +229,8 @@ namespace UnitTestProject1
             {
                 //ToDo Add code for second list
                 //name Ldfsdfsfd
+                userListSecond.First(e => e.Name == "dfgfdgfdg");
+                Assert.Fail();
             }
             catch (InvalidOperationException ie)
             {
@@ -228,6 +240,7 @@ namespace UnitTestProject1
             {
                 Assert.Fail("Unexpected exception of type {0} caught: {1}", e.GetType(), e.Message);
             }
+            
         }
 
         [TestMethod]
@@ -237,7 +250,8 @@ namespace UnitTestProject1
 
             //ToDo Add code for second list
 
-             //name Ldfsdfsfd
+            //name Ldfsdfsfd
+            actualData = userListSecond.FirstOrDefault(e => e.Name == "dfgfdgfdg");
 
 
             Assert.IsTrue(actualData == null);
@@ -253,6 +267,8 @@ namespace UnitTestProject1
             {
                 //ToDo Add code for second list
                 //name Ldfsdfsfd
+                actualData = userListSecond.First(e => e.Name == "dfgfdgfdg");
+                Assert.Fail();
             }
             catch (InvalidOperationException ie)
             {
@@ -262,6 +278,7 @@ namespace UnitTestProject1
             {
                 Assert.Fail("Unexpected exception of type {0} caught: {1}", e.GetType(), e.Message);
             }
+            
         }
 
         [TestMethod]
@@ -271,6 +288,7 @@ namespace UnitTestProject1
 
             //ToDo Add code for second list
             //name Ldfsdfsfd
+            actualData = userListSecond.FirstOrDefault(e => e.Name == "dfgfdgfdg");
 
             Assert.IsTrue(actualData == null);
         }
@@ -282,6 +300,7 @@ namespace UnitTestProject1
             var actualData = new User();
 
             //ToDo Add code for first list
+            actualData = userListSecond.FirstOrDefault(e => e.Salary == userListSecond.Max(x => x.Salary));
 
             Assert.IsTrue(expectedData == actualData.Salary);
         }
@@ -293,7 +312,7 @@ namespace UnitTestProject1
             var actualData = 0;
 
             //ToDo Add code for second list
-
+            actualData = userListSecond.Count(e => e.Name == "Max");
             Assert.IsTrue(expectedData == actualData);
         }
 
@@ -310,9 +329,41 @@ namespace UnitTestProject1
             var expectedData = 3;
             var actualData = -1;
 
-            //ToDo Add code for second list
+            var expectedResult = new[]
+            {
+            new
+            {
+                Name = "Max",
+                Salary = (decimal)24000,
+                Age = 23,               
+                Info="info about Max",                
+                Gender = Gender.Man,
+            },
 
-            Assert.IsTrue(expectedData == actualData);
+            new
+            {
+                Name = "Max",
+                Salary = (decimal)24000,
+                Age = 23,
+                Info="info about Max",
+                Gender = Gender.Man,
+            },
+
+            new
+            {
+                Name = "Alex",
+                Salary = (decimal)54000,
+                Age = 45,
+                Info="About Alex",
+                Gender = Gender.Man,
+            },
+
+            };
+
+            var result = userListSecond.Join(NameInfo, x => x.Name, y => y.name, (x, y) => 
+            new { Name = x.Name, Salary = x.Salary, Age = x.Age, Info = y.Info, Gender = x.Gender }).ToList();
+            //ToDo Add code for second lis
+            CollectionAssert.AreEqual(expectedResult, result.ToList());
         }
     }
 }
