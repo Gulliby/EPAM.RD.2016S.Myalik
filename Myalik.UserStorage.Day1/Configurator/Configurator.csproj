@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Configurators\ServiceConfigurator.cs" />
     <Compile Include="Configurators\Interface\IConfigurator.cs" />
+    <Compile Include="Domain\DomainAssemblyLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

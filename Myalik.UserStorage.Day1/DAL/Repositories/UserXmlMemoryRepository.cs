@@ -12,6 +12,7 @@ using Generator.Generators;
 
 namespace DAL.Repositories
 {
+    [Serializable]
     public class UserXmlMemoryRepository : MemoryRepository<DalUser>, IUserRepository
     {
         private string xmlFileName;
@@ -38,7 +39,8 @@ namespace DAL.Repositories
             var sContainer = new UserSerializableContainer
             {
                 Users = entities.ToList(),
-                IdPos = generator.Current,
+                Current = generator.Current,
+                Prev = generator.Prev,
             };
             var formatter = new XmlSerializer(typeof(UserSerializableContainer));
             using (var fs = new FileStream(xmlFileName, FileMode.Create))
@@ -56,7 +58,7 @@ namespace DAL.Repositories
             {
                 var sContainer = (UserSerializableContainer)formatter.Deserialize(fs);
                 entities = sContainer.Users;
-                generator = new IdGenerator(sContainer.IdPos).Generate().GetEnumerator();
+                generator = new FibIterator(sContainer.Current, sContainer.Prev);
             }
         }
 

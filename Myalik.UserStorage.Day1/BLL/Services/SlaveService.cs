@@ -11,6 +11,7 @@ using BLL.MainBllLogger;
 
 namespace BLL.Services
 {
+    [Serializable]
     public class SlaveService : UserSearchService, IService<BllUser>
     {
         private IUserRepository userRepository;

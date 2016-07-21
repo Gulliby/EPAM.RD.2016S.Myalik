@@ -8,10 +8,12 @@ using BLL.Validators;
 using Configurator.Configurators.Interface;
 using DAL.Repositories;
 using DAL.Repositories.Interface;
-using System.IO; 
-using System.Reflection; 
-using System.Security.Policy; 
-
+using System.IO;
+using System.Reflection;
+using System.Security.Policy;
+using Configurator.Domain;
+using DAL.Entities.Interface;
+using DAL.Entities;
 
 namespace Configurator.Configurators
 {
@@ -28,30 +30,24 @@ namespace Configurator.Configurators
             var userRepository = new UserXmlMemoryRepository(filePath);
             var userValidator = new UserValidator();
 
-            masterService = ConfigMaster(userRepository, userValidator);
+            masterService = CreateService<MasterService, DalUser>("MasterDomain", userRepository);
             slaveServices = new List<SlaveService>();
             for (int i = 0; i < countOfSlaveServices; i++)
             {
-                var slaveService = ConfigSlave((UserXmlMemoryRepository)userRepository.Clone(), i + 1);
+                var slaveService = CreateService<SlaveService,DalUser>("SlaveDomain" + (i + 1),(UserXmlMemoryRepository)userRepository.Clone());
                 masterService.OnDataChange += slaveService.DataChanged;
                 slaveServices.Add(slaveService);
             }
         }
 
-        private SlaveService ConfigSlave(UserXmlMemoryRepository uxmr, int number)
+        private T CreateService<T,U>(string domainName, IRepository<U> repository) 
+            where U: IDalEntity
         {
-            var domain = AppDomain.CreateDomain("SlaveDomain" + number);
-            var loader = (SlaveService)domain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName, 
-                typeof(SlaveService).FullName, new object[] { uxmr });
-            return loader;
+            AppDomain domain = AppDomain.CreateDomain(domainName);
+            var loader = (DomainAssemblyLoader)domain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName,
+                typeof(DomainAssemblyLoader).FullName);
+            return (T)loader.LoadFrom(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Bll.dll"),typeof(T), repository);
         }
 
-        private MasterService ConfigMaster(UserXmlMemoryRepository uxmr, UserValidator validator)
-        {
-            var domain = AppDomain.CreateDomain("MasterService");
-            var loader = (MasterService)domain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName,
-                typeof(MasterService).FullName, new object[] { uxmr , validator });
-            return loader;
-        }
     }
 }

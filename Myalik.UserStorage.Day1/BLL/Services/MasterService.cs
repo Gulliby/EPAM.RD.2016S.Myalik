@@ -8,18 +8,19 @@ using BLL.Search;
 using BLL.Entities;
 using DAL.Repositories.Interface;
 using DAL.Entities;
-using AutoMapper;
 using BLL.Entities.Interface;
 using BLL.Event;
 using BLL.MainBllLogger;
 using BLL.Validators.Interface;
+using BLL.Validators;
+using BLL.Mappers;
 
 namespace BLL.Services
 {
+    [Serializable]
     public class MasterService : UserSearchService, IService<BllUser>, INotifyService
     {
         
-        private readonly IMapper mapper;
         private readonly IUserRepository userRepository;
         private readonly IValidator<BllUser> validator;
         public event EventHandler<DataEventArgs> OnDataChange = delegate { };
@@ -31,21 +32,17 @@ namespace BLL.Services
             if (validator == null)
                 throw new ArgumentNullException(nameof(validator));
             this.userRepository = userRepository;
-            mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<BllUser, DalUser>();
-                cfg.CreateMap<DalUser, BllUser>();
-            }).CreateMapper();
             this.validator = validator;
         }
 
+        public MasterService(IUserRepository userRepository) : this(userRepository,new UserValidator()) { }
 
         public int AddEntity(BllUser entity)
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
             if (!validator.Validate(entity)) throw new ArgumentException(nameof(entity));
-            var retId = userRepository.Add(mapper.Map<BllUser, DalUser>(entity));
+            var retId = userRepository.Add(Mapper.ToDal(entity));
             if (retId == 0) return retId;
             Notify();
             if (BllLogger.BooleanSwitch)

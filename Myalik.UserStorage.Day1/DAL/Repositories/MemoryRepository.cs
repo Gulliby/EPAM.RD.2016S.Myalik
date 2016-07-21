@@ -16,6 +16,7 @@ using Generator.Generators.Interface;
 
 namespace DAL.Repositories
 {
+    [Serializable]
     public class MemoryRepository<TEntity>: IMemoryRepository<TEntity> 
         where TEntity: IDalEntity
     {
@@ -24,7 +25,7 @@ namespace DAL.Repositories
 
         protected IList<TEntity> entities;
 
-        protected IEnumerator<int> generator;
+        protected FibIterator generator;
 
         #endregion
 
@@ -39,14 +40,14 @@ namespace DAL.Repositories
         public MemoryRepository()
         {
             entities = new List<TEntity>();
-            generator = new IdGenerator(0).Generate().GetEnumerator();
+            generator = new FibIterator();
         }
 
-        public MemoryRepository(IGenerator generator) 
+        public MemoryRepository(FibIterator generator) 
         {
             if (generator == null)
                 throw new ArgumentNullException(nameof(generator));
-            this.generator = generator.Generate().GetEnumerator();
+            this.generator = generator;
         }
 
   
