@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using BLL.Entities;
 using BLL.MainBllLogger;
@@ -16,7 +17,7 @@ namespace BLL.Services
     public class UserSearchService : ISearchable<BllUser>
     {
         private readonly IUserRepository userRepository;
-        
+        protected ReaderWriterLockSlim slimLock = new ReaderWriterLockSlim();
         public UserSearchService(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
@@ -24,8 +25,17 @@ namespace BLL.Services
 
         public IEnumerable<BllUser> SearchEntityByName(string name)
         {
-            var entities = userRepository.SearchManyByPredicate(entity => entity.Name == name)
+            IEnumerable<BllUser> entities;
+            try
+            {
+                slimLock.EnterReadLock();
+                entities = userRepository.SearchManyByPredicate(entity => entity.Name == name)
                 .Select(Mapper.ToBll);
+            }
+            finally
+            {
+                slimLock.ExitReadLock();
+            }
             if (BllLogger.BooleanSwitch)
                 BllLogger.Instance.Info("Processed search query with parameters: name = {0}",name);
             return entities;
@@ -33,8 +43,17 @@ namespace BLL.Services
 
         public IEnumerable<BllUser> SearchEntityByLastName(string lastName)
         {
-            var entities = userRepository.SearchManyByPredicate(entity => entity.LastName == lastName)
+            IEnumerable<BllUser> entities;
+            try
+            {
+                slimLock.EnterReadLock();
+                entities = userRepository.SearchManyByPredicate(entity => entity.LastName == lastName)
                 .Select(Mapper.ToBll);
+            }
+            finally
+            {
+                slimLock.ExitReadLock();
+            }
             if (BllLogger.BooleanSwitch)
                 BllLogger.Instance.Info("Processed search query with parameters: lastName = {0}", lastName);
             return entities;
@@ -42,8 +61,17 @@ namespace BLL.Services
 
         public IEnumerable<BllUser> SearchEntityByNameAndLastName(string name, string lastName)
         {
-            var entities = userRepository.SearchManyByPredicate(entity => (entity.LastName == lastName) && (entity.Name == name))
+            IEnumerable<BllUser> entities;
+            try
+            {
+                slimLock.EnterReadLock();
+                entities = userRepository.SearchManyByPredicate(entity => (entity.LastName == lastName) && (entity.Name == name))
                 .Select(Mapper.ToBll);
+            }
+            finally
+            {
+                slimLock.ExitReadLock();
+            }
             if (BllLogger.BooleanSwitch)
                 BllLogger.Instance.Info("Processed search query with parameters: name = {0}, lastName = {1}", name, lastName);
             return entities;
