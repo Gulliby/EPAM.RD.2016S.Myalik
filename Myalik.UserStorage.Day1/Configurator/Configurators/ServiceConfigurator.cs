@@ -32,10 +32,10 @@ namespace Configurator.Configurators
 
             masterService = CreateService<MasterService, DalUser>("MasterDomain", userRepository);
             slaveServices = new List<SlaveService>();
-            for (int i = 0; i < countOfSlaveServices; i++)
+            for (var i = 0; i < countOfSlaveServices; i++)
             {
                 var slaveService = CreateService<SlaveService,DalUser>("SlaveDomain" + (i + 1),(UserXmlMemoryRepository)userRepository.Clone());
-                masterService.OnDataChange += slaveService.DataChanged;
+                //masterService.OnDataChange += slaveService.DataChanged;
                 slaveServices.Add(slaveService);
             }
         }
@@ -43,7 +43,7 @@ namespace Configurator.Configurators
         private T CreateService<T,U>(string domainName, IRepository<U> repository) 
             where U: IDalEntity
         {
-            AppDomain domain = AppDomain.CreateDomain(domainName);
+            var domain = AppDomain.CreateDomain(domainName);
             var loader = (DomainAssemblyLoader)domain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName,
                 typeof(DomainAssemblyLoader).FullName);
             return (T)loader.LoadFrom(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Bll.dll"),typeof(T), repository);

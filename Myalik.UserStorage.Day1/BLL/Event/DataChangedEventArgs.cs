@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BLL.Entities;
+using BLL.Entities.Interface;
 using DAL.Repositories.Interface;
 
 namespace BLL.Event
 {
-    public class DataEventArgs : EventArgs
+    public class DataChangedEventArgs<TEntity>: EventArgs 
+        where TEntity : IBllEnitity  
     {
         #region Private Fields
 
@@ -15,20 +18,19 @@ namespace BLL.Event
 
         #region Propetries
 
-        public IUserRepository UserRepository { get; }
+        public TEntity User { get; }
 
         #endregion
 
         #region Constructors
 
-        public DataEventArgs(IUserRepository userRepository)
+        public DataChangedEventArgs(TEntity user)
         {
-            if (userRepository == null)
-                throw new ArgumentNullException(nameof(userRepository));
-            UserRepository = userRepository;
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+            User = user;
         }
 
         #endregion
-
     }
 }

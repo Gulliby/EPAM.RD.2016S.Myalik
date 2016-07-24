@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Xml.Serialization;
 using BLL.Search;
@@ -12,6 +14,7 @@ using DAL.Repositories.Interface;
 using DAL.Entities;
 using BLL.Entities.Interface;
 using BLL.Event;
+using BLL.Extensions;
 using BLL.MainBllLogger;
 using BLL.Validators.Interface;
 using BLL.Validators;
@@ -20,12 +23,11 @@ using BLL.Mappers;
 namespace BLL.Services
 {
     [Serializable]
-    public class MasterService : UserSearchService, IService<BllUser>, INotifyService
+    public class MasterService : UserSearchService, IService<BllUser>
     {
         
         private readonly IUserRepository userRepository;
         private readonly IValidator<BllUser> validator;
-        public event EventHandler<DataEventArgs> OnDataChange = delegate { };
         private readonly IEnumerable<IPEndPoint> connectedServices;
 
         public MasterService(IUserRepository userRepository, IValidator<BllUser> validator) : base(userRepository)
@@ -65,7 +67,7 @@ namespace BLL.Services
                 slimLock.ExitWriteLock();
             }
             if (retId == 0) return retId;
-            Notify();
+            OnAdded(new DataChangedEventArgs<BllUser>(Mapper.ToBll(userRepository.SearchByPredicate(e => e.Id == retId))));
             if (BllLogger.BooleanSwitch)
                 BllLogger.Instance.Info("User with Name = {0} and LastName = {1} just added", entity.Name, entity.LastName);
             return retId;
@@ -73,6 +75,9 @@ namespace BLL.Services
 
         public void DeleteEntity(int id)
         {
+            var user = userRepository.SearchByPredicate(e => e.Id == id);
+            if (user == null)
+                throw new ArgumentException(nameof(id));
             try
             {
                 slimLock.EnterWriteLock();
@@ -84,22 +89,61 @@ namespace BLL.Services
             }          
             if (BllLogger.BooleanSwitch)
                 BllLogger.Instance.Info("User with Id = {0} just deleted", id);
-            Notify();
+            OnDeleted(new DataChangedEventArgs<BllUser>(Mapper.ToBll(user)));
         }
 
-        public void Notify()
+        private void SendMessage(IMessage messsage)
         {
-            OnOnDataChange(new DataEventArgs((IUserRepository)userRepository.Clone()));
-        }
-
-        protected virtual void OnOnDataChange(DataEventArgs args)
-        {
-            OnDataChange(this, args);
+            foreach(var cs in connectedServices)
+            {
+                NetworkStream stream = null;
+                try
+                {
+                    var client = new TcpClient(cs.Address.ToString(), cs.Port);
+                    var data = messsage.SerializeMessageToBinary();
+                    stream = client.GetStream();
+                    stream.Write(data, 0, data.Length);
+                }
+                finally
+                {
+                    stream?.Close();
+                }
+            }
         }
 
         public void Commit()
         {
             userRepository.SaveToXml();
         }
+
+        #region Event Functions
+
+        protected virtual void OnDataChange(FullDataChangedEventArgs<IUserRepository> args)
+        {
+            SendMessage(new NetworkUserMesssage
+            {
+                UserRepository = args.Repository
+            });
+        }
+
+        protected void OnAdded(DataChangedEventArgs<BllUser> args)
+        {
+            SendMessage(new NetworkUserMesssage
+            {
+                Function = Function.Add,
+                User = args.User
+            });
+        }
+
+        protected void OnDeleted(DataChangedEventArgs<BllUser> args)
+        {
+            SendMessage(new NetworkUserMesssage
+            {
+                Function = Function.Delete,
+                User = args.User
+            });
+        }
+
+        #endregion 
     }
 }

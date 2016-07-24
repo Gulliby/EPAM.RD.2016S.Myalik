@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Services.Interface
+namespace BLL.Entities
 {
-    public interface INotifyService
+    [Serializable]
+    public enum Function
     {
-        void Notify();
+        Add,
+        Delete,
+        ChangeAll
     }
 }

@@ -17,6 +17,8 @@ namespace DAL.Entities
 
         public string LastName { get; set; }
 
+        public string PersonalId { get; set; }
+
         public DalGender Gender { get; set; }
 
         public DateTime DayOfBirth { get; set; }
@@ -27,6 +29,7 @@ namespace DAL.Entities
         {
             return new DalUser
             {
+                PersonalId = string.Copy(PersonalId),
                 DayOfBirth = DayOfBirth,
                 Gender = Gender,
                 Id = Id,

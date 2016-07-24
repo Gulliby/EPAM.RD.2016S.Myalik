@@ -15,6 +15,8 @@ namespace BLL.Entities
 
         public string LastName { get; set; }
 
+        public string PersonalId { get; set; }
+
         public BllGender Gender { get; set; }
 
         public DateTime DayOfBirth { get; set; }
@@ -39,6 +41,7 @@ namespace BLL.Entities
                 && (LastName == user.LastName)
                 && (Gender == user.Gender))
                 && (DayOfBirth.Equals(user.DayOfBirth))
+                && (PersonalId == user.PersonalId)
                 && visaFlag;
         }
 
@@ -46,7 +49,7 @@ namespace BLL.Entities
         {
             return Id ^ (Name.Length + (byte)Name[0])
                 ^ (LastName.Length + (byte)LastName[0])
-                ^ (int)Gender;
+                ^ (int)Gender ^ PersonalId.GetHashCode();
         }
     }
 }

@@ -36,6 +36,7 @@ namespace BLL.Mappers
             return new DalUser
             {
                 Id = user.Id,
+                PersonalId = user.PersonalId,
                 DayOfBirth = user.DayOfBirth,
                 Name = user.Name,
                 LastName = user.LastName,
@@ -82,6 +83,7 @@ namespace BLL.Mappers
             {
                 //Id = user.Id,
                 DayOfBirth = user.DayOfBirth,
+                PersonalId = user.PersonalId,
                 Name = user.Name,
                 LastName = user.LastName,
                 Gender = (BllGender)user.Gender,
