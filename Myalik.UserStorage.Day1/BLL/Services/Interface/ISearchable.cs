@@ -15,5 +15,7 @@ namespace BLL.Services.Interface
         IEnumerable<TEntity> SearchEntityByLastName(string lastName);
 
         IEnumerable<TEntity> SearchEntityByNameAndLastName(string name, string lastName);
+
+        IEnumerable<TEntity> GetAll();
     }
 }

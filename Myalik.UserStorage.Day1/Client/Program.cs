@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using BLL.Entities;
 using BLL.MainBllLogger;
@@ -12,22 +14,12 @@ namespace Client
 {
     class Program
     {
+        private static readonly Random random = new Random();
+
         static void Main(string[] args)
         {
-            MasterService masterService;
-            IList<SlaveService> slaveServices;
-            var configurator = new ServiceConfigurator();
-            configurator.Config(1, 4, "file.xml", out masterService, out slaveServices);
-            BllLogger.BooleanSwitch = true;
-            masterService.AddEntity(new BllUser
-            {
-                DayOfBirth = DateTime.Now,
-                Gender = BllGender.Female,
-                LastName = "Ilya",
-                Name = "Myalik",
-                Visa = new List<BllVisaInfo>(),
-            });           
-            masterService.Commit();
+
         }
+
     }
 }

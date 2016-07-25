@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Entities
 {
+    [Serializable]
     public class BllUser : IBllEnitity
     {
         public int Id { get; }

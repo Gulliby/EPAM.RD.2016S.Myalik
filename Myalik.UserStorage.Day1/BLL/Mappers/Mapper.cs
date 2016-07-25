@@ -33,6 +33,7 @@ namespace BLL.Mappers
 
         public static DalUser ToDal(BllUser user)
         {
+            var visaInfos = user.Visa?.Select(ToDal).ToList();
             return new DalUser
             {
                 Id = user.Id,
@@ -41,7 +42,7 @@ namespace BLL.Mappers
                 Name = user.Name,
                 LastName = user.LastName,
                 Gender = (DalGender)user.Gender,
-                Visa = user.Visa.Select(ToDal).ToList(),
+                Visa = visaInfos,
             };
         }
 
@@ -52,7 +53,7 @@ namespace BLL.Mappers
             {
                 Id = visa.Id,
                 Start = visa.Start,
-                End =visa.End,
+                End = visa.End,
                 Country = ToDal(visa.Country),
             };
         }
@@ -79,6 +80,7 @@ namespace BLL.Mappers
 
         public static BllUser ToBll(DalUser user)
         {
+            var visaInfos = user.Visa?.Select(ToBll).ToList();
             return new BllUser
             {
                 //Id = user.Id,
@@ -87,7 +89,7 @@ namespace BLL.Mappers
                 Name = user.Name,
                 LastName = user.LastName,
                 Gender = (BllGender)user.Gender,
-                Visa = user.Visa.Select(ToBll).ToList(),
+                Visa = visaInfos,
             };
         }
 

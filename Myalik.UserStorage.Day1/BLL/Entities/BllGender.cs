@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Entities
 {
+    [Serializable]
     public enum BllGender
     {
         Male = 1,

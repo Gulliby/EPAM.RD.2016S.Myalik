@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Exceptions\IndexCantBeCreated.cs" />
     <Compile Include="Generators\FibIdGenerator.cs" />
-    <Compile Include="Generators\IdGenerator.cs" />
     <Compile Include="Generators\Interface\IGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

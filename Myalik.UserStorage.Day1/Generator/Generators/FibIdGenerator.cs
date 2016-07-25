@@ -4,48 +4,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Generator.Generators.Interface;
 
 namespace Generator.Generators
 {
     [Serializable]
-    public class FibIterator : IEnumerator<int>
+    public class FibIterator : IEnumerator<int>,IGenerator
     {
-        private int prev;
-        private int current;
 
         public FibIterator(int current, int prev)
         {
-            this.current = current;
-            this.prev = prev;
+            Current = current;
+            Prev = prev;
         }
 
         public FibIterator() : this(1, 0) { }
 
-        public int Prev { get { return prev; } }
+        public int Prev { get; private set; }
 
-        public int Current{ get; }
+        public int Current{ get; private set; }
 
         object IEnumerator.Current => Current;
 
         public bool MoveNext()
         {
-            if (int.MaxValue - current < prev)
+            if (int.MaxValue - Current < Prev)
                 return false;
-            int temp = prev + current;
-            prev = current;
-            current = temp;
+            var temp = Prev + Current;
+            Prev = Current;
+            Current = temp;
             return true;
         }
 
         public void Reset()
         {
-            prev = 0;
-            current = 1;
+            Prev = 0;
+            Current = 1;
         }
 
         public void Dispose()
         {
-            prev = current = 0;
+            Prev = Current = 0;
+        }
+
+        public object Clone()
+        {
+            return new FibIterator(Current, Prev);
         }
     }
 }

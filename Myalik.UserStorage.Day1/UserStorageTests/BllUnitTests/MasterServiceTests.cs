@@ -19,13 +19,6 @@ namespace UserStorageTests.BllUnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void MasterService_ValidatorNull_ThrowsArgumentNullException()
-        {
-            new MasterService(new UserXmlMemoryRepository("test.xml"), null);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void MasterService_AddNullEntity_ThrowsArgumentNullException()
         {
             var masterService = new MasterService(new UserXmlMemoryRepository("test.xml"), new UserValidator());

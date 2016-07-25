@@ -25,7 +25,7 @@ namespace DAL.Repositories
 
         protected IList<TEntity> entities;
 
-        protected FibIterator generator;
+        protected IGenerator generator;
 
         #endregion
 

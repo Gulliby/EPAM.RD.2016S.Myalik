@@ -14,7 +14,7 @@ using BLL.Mappers;
 namespace BLL.Services
 {
     [Serializable]
-    public class UserSearchService : ISearchable<BllUser>
+    public class UserSearchService : MarshalByRefObject, ISearchable<BllUser>
     {
         private readonly IUserRepository userRepository;
         protected ReaderWriterLockSlim slimLock = new ReaderWriterLockSlim();
@@ -74,6 +74,24 @@ namespace BLL.Services
             }
             if (BllLogger.BooleanSwitch)
                 BllLogger.Instance.Info("Processed search query with parameters: name = {0}, lastName = {1}", name, lastName);
+            return entities;
+        }
+
+        public IEnumerable<BllUser> GetAll()
+        {
+            IEnumerable<BllUser> entities;
+            try
+            {
+                slimLock.EnterReadLock();
+                entities = userRepository.SearchManyByPredicate(entity => true)
+                .Select(Mapper.ToBll);
+            }
+            finally
+            {
+                slimLock.ExitReadLock();
+            }
+            if (BllLogger.BooleanSwitch)
+                BllLogger.Instance.Info("Get all processed.");
             return entities;
         }
     }
