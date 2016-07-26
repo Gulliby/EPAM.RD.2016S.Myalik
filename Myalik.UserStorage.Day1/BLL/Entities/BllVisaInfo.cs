@@ -10,7 +10,7 @@ namespace BLL.Entities
     [Serializable]
     public class BllVisaInfo : IBllEnitity
     {
-        public int Id { get; }
+        public int Id { get; set; }
 
         public BllCountry Country { get; set; }
 

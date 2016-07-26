@@ -84,7 +84,7 @@ namespace BLL.Services
             {
                 slimLock.EnterReadLock();
                 entities = userRepository.SearchManyByPredicate(entity => true)
-                .Select(Mapper.ToBll);
+                .Select(Mapper.ToBll).ToList();
             }
             finally
             {

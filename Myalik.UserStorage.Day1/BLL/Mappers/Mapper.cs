@@ -71,7 +71,7 @@ namespace BLL.Mappers
         {
             return new BllCountry
             {
-                //Id = country.Id,
+                Id = country.Id,
                 ISO = country.ISO,
                 Name = country.Name,
                 PhoneCode = country.PhoneCode,
@@ -83,7 +83,7 @@ namespace BLL.Mappers
             var visaInfos = user.Visa?.Select(ToBll).ToList();
             return new BllUser
             {
-                //Id = user.Id,
+                Id = user.Id,
                 DayOfBirth = user.DayOfBirth,
                 PersonalId = user.PersonalId,
                 Name = user.Name,
@@ -98,7 +98,7 @@ namespace BLL.Mappers
         {
             return new BllVisaInfo
             {
-                //Id = visa.Id,
+                Id = visa.Id,
                 Start = visa.Start,
                 End = visa.End,
                 Country = ToBll(visa.Country),

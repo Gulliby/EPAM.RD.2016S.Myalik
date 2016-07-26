@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using DAL.Container;
 using Generator.Generators;
+using Generator.Generators.Interface;
 
 namespace DAL.Repositories
 {
@@ -68,7 +69,7 @@ namespace DAL.Repositories
             {
                 entities = entities.Select(item => item).ToList(),
                 xmlFileName = string.Copy(xmlFileName),
-                generator = generator
+                generator = (IGenerator)generator.Clone(),
             };
         }
     }

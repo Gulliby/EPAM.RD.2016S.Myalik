@@ -89,7 +89,7 @@ namespace DAL.Repositories
             return new MemoryRepository<TEntity>
             {
                 entities = entities.Select(item => (TEntity)item.Clone()).ToList(),
-                generator = generator
+                generator = (IGenerator)generator.Clone(),
             };
         }
 

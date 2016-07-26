@@ -13,7 +13,7 @@ namespace BLL.Validators
     {
         public bool Validate(BllUser entity)
         {
-            return entity.Visa != null;
+            return entity.Name != string.Empty;
         }
     }
 }

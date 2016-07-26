@@ -10,7 +10,7 @@ namespace BLL.Entities
     [Serializable]
     public class BllUser : IBllEnitity
     {
-        public int Id { get; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -22,7 +22,7 @@ namespace BLL.Entities
 
         public DateTime DayOfBirth { get; set; }
 
-        public IEnumerable<BllVisaInfo> Visa { get; set; }
+        public List<BllVisaInfo> Visa { get; set; }
 
 
         public override bool Equals(object obj)
@@ -37,7 +37,9 @@ namespace BLL.Entities
 
         private bool Equals(BllUser user)
         {
-            var visaFlag = new HashSet<BllVisaInfo>(Visa).SetEquals(new HashSet<BllVisaInfo>(user.Visa));
+            var visaFlag = true;
+            if ((Visa != null) && (user.Visa != null))
+                visaFlag = new HashSet<BllVisaInfo>(Visa).SetEquals(new HashSet<BllVisaInfo>(user.Visa));
             return ((Name == user.Name)
                 && (LastName == user.LastName)
                 && (Gender == user.Gender))

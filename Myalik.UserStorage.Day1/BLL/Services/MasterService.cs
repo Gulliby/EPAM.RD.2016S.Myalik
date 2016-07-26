@@ -66,8 +66,8 @@ namespace BLL.Services
             {
                 slimLock.ExitWriteLock();
             }
-            if (retId == 0) return retId;
             OnAdded(new DataChangedEventArgs<BllUser>(Mapper.ToBll(userRepository.SearchByPredicate(e => e.Id == retId))));
+            if (retId == 0) return retId;
             if (BllLogger.BooleanSwitch)
                 BllLogger.Instance.Info("User with Name = {0} and LastName = {1} just added", entity.Name, entity.LastName);
             return retId;
