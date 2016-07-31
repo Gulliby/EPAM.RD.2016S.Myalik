@@ -25,18 +25,14 @@ namespace BLL.Entities
         public override bool Equals(object obj)
         {
             var item = obj as BllCountry;
-            if (item == null)
-            {
-                return false;
-            }
-            return Equals(item);
+            return item != null && Equals(item);
         }
 
         private bool Equals(BllCountry country)
         {
-            return ((ISO == country.ISO)
+            return (ISO == country.ISO)
                 && (Name == country.Name)
-                && (PhoneCode == country.PhoneCode));
+                && (PhoneCode == country.PhoneCode);
         }
 
         public override int GetHashCode()

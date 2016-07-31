@@ -23,6 +23,7 @@ namespace Server
         {
             bool createdNew;
             var mutex = new Mutex(true, "day5", out createdNew);
+            //Taked from https://habrahabr.ru/
             var baseAddress = new Uri("http://localhost:8733/Design_Time_Addresses/WcfService/UserService/");
             var proxy = ProxyCollector.GetConfigedServiceProxy();
             using (var host = new ServiceServerHost(proxy, typeof(UserService), baseAddress))
@@ -40,15 +41,16 @@ namespace Server
 
                 mutex.ReleaseMutex();
 
-                Console.WriteLine("The service is ready at {0}", baseAddress);
-                Console.WriteLine("Press <Enter> to stop the service.");
-                Console.ReadLine();
+                Console.WriteLine("Started at {0}", baseAddress);
+                Console.WriteLine("Press any button to stop service :");
+                Console.ReadKey();
 
                 host.Close();
             }
             
-            Console.WriteLine("Master state was saved");
-            Console.WriteLine("Press any key to exit");
+            Console.WriteLine("Master saved");
+            proxy.Commit();
+            Console.WriteLine("Press any button to exit");
             Console.ReadKey();
         }
     }

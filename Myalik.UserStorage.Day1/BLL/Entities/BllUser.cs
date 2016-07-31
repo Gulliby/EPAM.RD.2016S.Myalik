@@ -28,11 +28,7 @@ namespace BLL.Entities
         public override bool Equals(object obj)
         {
             var item = obj as BllUser;
-            if (item == null)
-            {
-                return false;
-            }
-            return Equals(item);
+            return item != null && Equals(item);
         }
 
         private bool Equals(BllUser user)
@@ -40,10 +36,10 @@ namespace BLL.Entities
             var visaFlag = true;
             if ((Visa != null) && (user.Visa != null))
                 visaFlag = new HashSet<BllVisaInfo>(Visa).SetEquals(new HashSet<BllVisaInfo>(user.Visa));
-            return ((Name == user.Name)
+            return (Name == user.Name)
                 && (LastName == user.LastName)
-                && (Gender == user.Gender))
-                && (DayOfBirth.Equals(user.DayOfBirth))
+                && (Gender == user.Gender)
+                && DayOfBirth.Equals(user.DayOfBirth)
                 && (PersonalId == user.PersonalId)
                 && visaFlag;
         }

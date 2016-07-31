@@ -19,6 +19,7 @@ using BLL.MainBllLogger;
 using BLL.Validators.Interface;
 using BLL.Validators;
 using BLL.Mappers;
+using BLL.Serializer;
 
 namespace BLL.Services
 {
@@ -100,9 +101,10 @@ namespace BLL.Services
                 try
                 {
                     var client = new TcpClient(cs.Address.ToString(), cs.Port);
-                    var data = messsage.SerializeMessageToBinary();
                     stream = client.GetStream();
-                    stream.Write(data, 0, data.Length);
+                    MyBinarySerializer.Write(messsage,ref stream);
+                    //var data = messsage.SerializeMessageToBinary();       
+                    //stream.Write(data, 0, data.Length);
                 }
                 finally
                 {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BLL.Entities;
+using BLL.Services;
 using BLL.Services.Interface;
 
 namespace ServiceProxy.Proxies
@@ -37,7 +38,11 @@ namespace ServiceProxy.Proxies
             currentSlave = (currentSlave + 1) % Slaves.Count;
             return Slaves[slave].SearchEntityByName(name).ToList();
         }
-        
+
+        public void Commit()
+        {
+            ((MasterService)Master).Commit();    
+        }
 
         #region Not Emplemented
 
@@ -54,9 +59,7 @@ namespace ServiceProxy.Proxies
         {
             throw new NotImplementedException();
         }
-
-        
-
+       
         public IEnumerable<BllUser> SearchEntityByNameAndLastName(string name, string lastName)
         {
             throw new NotImplementedException();

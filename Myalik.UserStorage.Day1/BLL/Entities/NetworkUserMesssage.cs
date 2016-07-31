@@ -9,7 +9,7 @@ using DAL.Repositories.Interface;
 namespace BLL.Entities
 {
     [Serializable]
-    public class NetworkUserMesssage : IMessage
+    public struct NetworkUserMesssage : IMessage
     {
         public BllUser User { get; set; }
 

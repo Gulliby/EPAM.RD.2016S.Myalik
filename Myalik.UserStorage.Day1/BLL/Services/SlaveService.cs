@@ -14,6 +14,7 @@ using BLL.Services.Interface;
 using DAL.Repositories.Interface;
 using BLL.MainBllLogger;
 using BLL.Mappers;
+using BLL.Serializer;
 
 namespace BLL.Services
 {
@@ -61,7 +62,8 @@ namespace BLL.Services
                     {
                         var client = listener.AcceptTcpClient();
                         var stream = client.GetStream();
-                        var message = stream.DeserializeMessageFromBinary();
+                        //var message = stream.DeserializeMessageFromBinary();
+                        var message = MyBinarySerializer.Read<NetworkUserMesssage>(stream);
                         Start(message);
                     }
                 }
@@ -75,9 +77,7 @@ namespace BLL.Services
 
         private void Start(IMessage message)
         {
-            var userMessage = message 
-                as NetworkUserMesssage;
-            if (userMessage == null) return;
+            var userMessage = (NetworkUserMesssage) message; 
             switch (userMessage.Function)
             {
                 case Function.Add:
