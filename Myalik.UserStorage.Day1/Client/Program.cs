@@ -18,18 +18,13 @@ namespace Client
 
         static void Main(string[] args)
         {
-            var conf = new ServiceConfigurator();
-            var connections = new List<IPEndPoint>
-            {
-                new IPEndPoint(IPAddress.Parse("127.0.0.1"), 55555),
-                new IPEndPoint(IPAddress.Parse("127.0.0.1"), 55556),
-                new IPEndPoint(IPAddress.Parse("127.0.0.1"), 55557),
-                new IPEndPoint(IPAddress.Parse("127.0.0.1"), 55558)
-            };
+            //day5
+            Mutex mutex;
+            while (!Mutex.TryOpenExisting("day5", out mutex))
+                Thread.Sleep(100);
+            mutex.WaitOne();
 
-            MasterService master;
-            IList<SlaveService> slaves;
-            conf.Config(1, 4, "file.xml",connections, out master, out slaves);
+            var service = new ServiceReference.UserServiceClient();
 
             var cts = new CancellationTokenSource();
             var token = cts.Token;
@@ -44,36 +39,20 @@ namespace Client
                         break;
                     var user = GenerateUser();
                     Console.WriteLine("One more user will be adeed MASTER.");
-                    master.AddEntity(user);
-                    var users = master.GetAll();
-                    PrintUsers("Users in MASTER now:", users);
+                    service.Add(user);
+                    var users = service.GetAll();
+                    PrintUsers("Users now:", users);
                     Thread.Sleep(1000);
                 }
             };
 
-            WaitCallback slaveCallback = p =>
-            {
-                start.Wait(token);
-                var slave = (SlaveService)p;
-                while (true)
-                {
-                    if (token.IsCancellationRequested)
-                        break;
-                    var users = slave.GetAll().ToList();
-                    PrintUsers("Users in SLAVE now:", users);
-                    Thread.Sleep(1000);
-                }
-            };
+            for (var i = 0; i < 3; i++)
+                ThreadPool.QueueUserWorkItem(masterCallback);
 
-            ThreadPool.QueueUserWorkItem(masterCallback, master);
-            foreach (var s in slaves)
-                ThreadPool.QueueUserWorkItem(slaveCallback, s);
-            
 
             start.Set();
             Console.ReadLine();
             cts.Cancel();
-            master.Commit();
             Console.ReadLine();
         }
 
@@ -84,7 +63,8 @@ namespace Client
                 Name = RandomString(7),
                 LastName = RandomString(7),
                 DayOfBirth = DateTime.FromBinary(random.Next()),
-                PersonalId = RandomString(7)
+                PersonalId = RandomString(7),
+                Gender = BllGender.Female,
             };
             return result;
 
@@ -103,7 +83,7 @@ namespace Client
             var bllUsers = users as BllUser[] ?? users.ToArray();
             for(var i = 0; i < bllUsers.Length; i++)
             {
-                Console.WriteLine("{0}. {1}", i + 1, bllUsers[i]);
+                Console.WriteLine("{0}. {1}", i + 1, bllUsers[i].Id);
             }
         }
 

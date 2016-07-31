@@ -38,7 +38,7 @@ namespace BLL.Services
             }
             if (BllLogger.BooleanSwitch)
                 BllLogger.Instance.Info("Processed search query with parameters: name = {0}",name);
-            return entities;
+            return entities.ToList();
         }
 
         public IEnumerable<BllUser> SearchEntityByLastName(string lastName)
@@ -56,7 +56,7 @@ namespace BLL.Services
             }
             if (BllLogger.BooleanSwitch)
                 BllLogger.Instance.Info("Processed search query with parameters: lastName = {0}", lastName);
-            return entities;
+            return entities.ToList();
         }
 
         public IEnumerable<BllUser> SearchEntityByNameAndLastName(string name, string lastName)
@@ -74,7 +74,7 @@ namespace BLL.Services
             }
             if (BllLogger.BooleanSwitch)
                 BllLogger.Instance.Info("Processed search query with parameters: name = {0}, lastName = {1}", name, lastName);
-            return entities;
+            return entities.ToList();
         }
 
         public IEnumerable<BllUser> GetAll()
@@ -92,7 +92,7 @@ namespace BLL.Services
             }
             if (BllLogger.BooleanSwitch)
                 BllLogger.Instance.Info("Get all processed.");
-            return entities;
+            return entities.ToList();
         }
     }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/BLL.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/BLL.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:51266/UserService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="BllUser">
+    <xs:sequence>
+      <xs:element name="_x003C_DayOfBirth_x003E_k__BackingField" type="xs:dateTime" />
+      <xs:element name="_x003C_Gender_x003E_k__BackingField" type="tns:BllGender" />
+      <xs:element name="_x003C_Id_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_LastName_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Name_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_PersonalId_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Visa_x003E_k__BackingField" nillable="true" type="tns:ArrayOfBllVisaInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BllUser" nillable="true" type="tns:BllUser" />
+  <xs:simpleType name="BllGender">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Male">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Female">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="BllGender" nillable="true" type="tns:BllGender" />
+  <xs:complexType name="ArrayOfBllVisaInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BllVisaInfo" nillable="true" type="tns:BllVisaInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBllVisaInfo" nillable="true" type="tns:ArrayOfBllVisaInfo" />
+  <xs:complexType name="BllVisaInfo">
+    <xs:sequence>
+      <xs:element name="_x003C_Country_x003E_k__BackingField" nillable="true" type="tns:BllCountry" />
+      <xs:element name="_x003C_End_x003E_k__BackingField" type="xs:dateTime" />
+      <xs:element name="_x003C_Id_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_Start_x003E_k__BackingField" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BllVisaInfo" nillable="true" type="tns:BllVisaInfo" />
+  <xs:complexType name="BllCountry">
+    <xs:sequence>
+      <xs:element name="_x003C_ISO_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Id_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_Name_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_PhoneCode_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BllCountry" nillable="true" type="tns:BllCountry" />
+  <xs:complexType name="ArrayOfBllUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BllUser" nillable="true" type="tns:BllUser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBllUser" nillable="true" type="tns:ArrayOfBllUser" />
+</xs:schema>

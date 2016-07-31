@@ -10,10 +10,22 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generator", "Generator\Generator.csproj", "{367AB3A6-4A57-498E-8689-559D80F2CA3A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{26B8071D-B680-4658-ADD7-C085584DC0B7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{256FBB3C-7E68-42EB-AB58-246238A14C18} = {256FBB3C-7E68-42EB-AB58-246238A14C18}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configurator", "Configurator\Configurator.csproj", "{308C1858-3C39-445A-AB43-96931F28A5EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserStorageTests", "UserStorageTests\UserStorageTests.csproj", "{29336FED-9665-44D8-89DD-9D946BF52FF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{3699A95F-A7C0-402B-BA0C-C77F6E16928A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{256FBB3C-7E68-42EB-AB58-246238A14C18} = {256FBB3C-7E68-42EB-AB58-246238A14C18}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "WcfService\WcfService.csproj", "{256FBB3C-7E68-42EB-AB58-246238A14C18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceProxy", "ServiceProxy\ServiceProxy.csproj", "{0194AA27-9872-4057-A5BA-6A0DC64081B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +57,18 @@ Global
 		{29336FED-9665-44D8-89DD-9D946BF52FF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29336FED-9665-44D8-89DD-9D946BF52FF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29336FED-9665-44D8-89DD-9D946BF52FF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3699A95F-A7C0-402B-BA0C-C77F6E16928A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3699A95F-A7C0-402B-BA0C-C77F6E16928A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3699A95F-A7C0-402B-BA0C-C77F6E16928A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3699A95F-A7C0-402B-BA0C-C77F6E16928A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{256FBB3C-7E68-42EB-AB58-246238A14C18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{256FBB3C-7E68-42EB-AB58-246238A14C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{256FBB3C-7E68-42EB-AB58-246238A14C18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{256FBB3C-7E68-42EB-AB58-246238A14C18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0194AA27-9872-4057-A5BA-6A0DC64081B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0194AA27-9872-4057-A5BA-6A0DC64081B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0194AA27-9872-4057-A5BA-6A0DC64081B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0194AA27-9872-4057-A5BA-6A0DC64081B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
