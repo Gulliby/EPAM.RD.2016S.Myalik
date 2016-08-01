@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.ServiceModel;
 using System.ServiceModel.Description;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using Server.AppConfig.ConnectionConfig;
-using Server.AppConfig.FileConfig;
-using Server.AppConfig.ServiceConfig;
 using Server.Collector;
-using ServiceProxy.Proxies;
-using WcfService;
-using WcfService.Configuration;
+using WcfServiceLibrary;
+using WcfServiceLibrary.Configuration;
 
 namespace Server
 {
@@ -24,7 +14,7 @@ namespace Server
             bool createdNew;
             var mutex = new Mutex(true, "day5", out createdNew);
             //Taked from https://habrahabr.ru/
-            var baseAddress = new Uri("http://localhost:8733/Design_Time_Addresses/WcfService/UserService/");
+            var baseAddress = new Uri("http://localhost:8733/Design_Time_Addresses/WcfServiceLibrary/UserService/");
             var proxy = ProxyCollector.GetConfigedServiceProxy();
             using (var host = new ServiceServerHost(proxy, typeof(UserService), baseAddress))
             {

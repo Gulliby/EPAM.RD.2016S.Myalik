@@ -76,9 +76,9 @@
       <Project>{0194aa27-9872-4057-a5ba-6a0dc64081b3}</Project>
       <Name>ServiceProxy</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WcfService\WcfService.csproj">
-      <Project>{256fbb3c-7e68-42eb-ab58-246238a14c18}</Project>
-      <Name>WcfService</Name>
+    <ProjectReference Include="..\WcfServiceLibrary\WcfServiceLibrary.csproj">
+      <Project>{d5aeac8c-5408-4117-b5f5-d78cbe11806a}</Project>
+      <Name>WcfServiceLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

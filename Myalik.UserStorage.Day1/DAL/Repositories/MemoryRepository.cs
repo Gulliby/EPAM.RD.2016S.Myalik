@@ -1,15 +1,9 @@
 ﻿using DAL.Repositories.Interface;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Linq.Expressions;
-using System.Xml.Serialization;
-using DAL.Container;
 using DAL.Entities.Interface;
-using DAL.Repositories;
 using Generator.Exceptions;
 using Generator.Generators;
 using Generator.Generators.Interface;

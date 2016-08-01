@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BLL.Services;
-using BLL.Validators;
 using Configurator.Configurators.Interface;
 using DAL.Repositories;
 using DAL.Repositories.Interface;
@@ -12,7 +9,6 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
-using System.Security.Policy;
 using Configurator.Domain;
 using DAL.Entities.Interface;
 using DAL.Entities;

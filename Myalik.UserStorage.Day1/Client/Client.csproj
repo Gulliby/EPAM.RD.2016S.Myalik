@@ -56,14 +56,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Properties\DataSources\BLL.Entities.BllUser.datasource" />
-    <None Include="Service References\ServiceReference\UserService.wsdl" />
-    <None Include="Service References\ServiceReference\UserService.xsd">
+    <None Include="Service References\ServiceReference\BLL.Entities.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReference\UserService1.xsd">
+    <None Include="Service References\ServiceReference\service.wsdl" />
+    <None Include="Service References\ServiceReference\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReference\UserService2.xsd">
+    <None Include="Service References\ServiceReference\service1.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -82,9 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ServiceReference\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ServiceReference\UserService.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\ServiceReference\configuration91.svcinfo" />

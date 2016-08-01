@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using BLL.Entities;
 using BLL.Entities.Interface;
 using BLL.Event;
-using BLL.Extensions;
 using BLL.Services.Interface;
 using DAL.Repositories.Interface;
 using BLL.MainBllLogger;
@@ -51,7 +46,7 @@ namespace BLL.Services
 
         protected void Listen()
         {
-            var thread = new Thread(() =>
+            ThreadPool.QueueUserWorkItem(async e =>
             {
                 TcpListener listener = null;
                 try
@@ -60,19 +55,25 @@ namespace BLL.Services
                     listener.Start();
                     while (true)
                     {
-                        var client = listener.AcceptTcpClient();
-                        var stream = client.GetStream();
-                        //var message = stream.DeserializeMessageFromBinary();
-                        var message = MyBinarySerializer.Read<NetworkUserMesssage>(stream);
-                        Start(message);
+                        TcpClient tcpClient = null;
+                        try
+                        {
+                            tcpClient = await listener.AcceptTcpClientAsync();
+                            var stream = tcpClient.GetStream();
+                            var message = await MyBinarySerializer.ReadAsync<NetworkUserMesssage>(stream);
+                            Start(message);
+                        }
+                        finally
+                        {
+                            tcpClient?.Close();
+                        }
                     }
                 }
                 finally
                 {
                     listener?.Stop();
                 }
-            }) {IsBackground = true};
-            thread.Start();
+            });
         }
 
         private void Start(IMessage message)

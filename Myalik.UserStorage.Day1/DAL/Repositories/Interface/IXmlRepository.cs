@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DAL.Entities.Interface;
+﻿using DAL.Entities.Interface;
 
 namespace DAL.Repositories.Interface
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using BLL.Services;
 using BLL.Validators;
-using DAL.Entities;
 using DAL.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

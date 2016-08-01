@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BLL.Entities;
 using BLL.Services;
 using BLL.Services.Interface;
@@ -28,43 +25,37 @@ namespace ServiceProxy.Proxies
         public void DeleteEntity(int id)
         {
             Master.DeleteEntity(id);
-        }
-
+        }  
+     
         public IEnumerable<BllUser> SearchEntityByName(string name)
         {
-            if (Slaves.Count <= 0)
-                return Master.SearchEntityByName(name);
-            var slave = currentSlave;
-            currentSlave = (currentSlave + 1) % Slaves.Count;
-            return Slaves[slave].SearchEntityByName(name).ToList();
-        }
-
-        public void Commit()
-        {
-            ((MasterService)Master).Commit();    
-        }
-
-        #region Not Emplemented
-
-        public IEnumerable<BllUser> GetAll()
-        {
-            if (Slaves.Count <= 0)
-                return Master.GetAll();
-            var slave = currentSlave;
-            currentSlave = (currentSlave + 1) % Slaves.Count;
-            return Slaves[slave].GetAll().ToList();
+            return GetSearchable().SearchEntityByName(name).ToList();
         }
 
         public IEnumerable<BllUser> SearchEntityByLastName(string lastName)
         {
-            throw new NotImplementedException();
+            return GetSearchable().SearchEntityByLastName(lastName).ToList();
         }
        
         public IEnumerable<BllUser> SearchEntityByNameAndLastName(string name, string lastName)
         {
-            throw new NotImplementedException();
+            return GetSearchable().SearchEntityByNameAndLastName(name, lastName).ToList();
         }
-
-        #endregion
+        public IEnumerable<BllUser> GetAll()
+        {
+            return GetSearchable().GetAll().ToList();
+        }
+        private IService<BllUser> GetSearchable()
+        {
+            if (Slaves.Count <= 0)
+                return Master;
+            var slave = currentSlave;
+            currentSlave = (currentSlave + 1) % Slaves.Count;
+            return Slaves[slave];
+        }
+        public void Commit()
+        {
+            ((MasterService)Master).Commit();
+        }
     }
 }

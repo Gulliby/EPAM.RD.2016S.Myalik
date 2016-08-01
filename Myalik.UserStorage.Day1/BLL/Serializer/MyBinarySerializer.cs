@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
-using BLL.Entities;
 using BLL.Entities.Interface;
 
 namespace BLL.Serializer
 {
     public static class MyBinarySerializer
     {
+        public static Task<T> ReadAsync<T>(Stream stream)
+            where T : struct, IMessage
+        {
+            return Task.FromResult(Read<T>(stream));
+        }
+
         public  static T Read<T>(Stream stream)
             where T : struct , IMessage 
         {  
@@ -26,15 +27,17 @@ namespace BLL.Serializer
             return Result;     
         }
 
-        public static void Write(object obj, ref NetworkStream stream)
+        public static byte[] Write(object obj)
         {
+            var ms = new MemoryStream();
             var Length = Marshal.SizeOf(obj);
             var Bytes = new byte[Length];
             var Handle = Marshal.AllocHGlobal(Length);
             Marshal.StructureToPtr(obj, Handle, true);
             Marshal.Copy(Handle, Bytes, 0, Length);
             Marshal.FreeHGlobal(Handle);
-            stream.Write(Bytes, 0, Length);
+            ms.Write(Bytes, 0, Length);
+            return ms.ToArray();
         }
     }
 }

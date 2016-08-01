@@ -1,20 +1,12 @@
 ﻿using BLL.Services.Interface;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading;
-using System.Xml.Serialization;
-using BLL.Search;
 using BLL.Entities;
 using DAL.Repositories.Interface;
-using DAL.Entities;
 using BLL.Entities.Interface;
 using BLL.Event;
-using BLL.Extensions;
 using BLL.MainBllLogger;
 using BLL.Validators.Interface;
 using BLL.Validators;
@@ -93,22 +85,24 @@ namespace BLL.Services
             OnDeleted(new DataChangedEventArgs<BllUser>(Mapper.ToBll(user)));
         }
 
-        private void SendMessage(IMessage messsage)
+        private async void SendMessage(IMessage messsage)
         {
             foreach(var cs in connectedServices)
             {
-                NetworkStream stream = null;
+                TcpClient client = null;
                 try
                 {
-                    var client = new TcpClient(cs.Address.ToString(), cs.Port);
-                    stream = client.GetStream();
-                    MyBinarySerializer.Write(messsage,ref stream);
-                    //var data = messsage.SerializeMessageToBinary();       
-                    //stream.Write(data, 0, data.Length);
+                    client = new TcpClient();
+                    var data = MyBinarySerializer.Write(messsage);
+                    await client.ConnectAsync(cs.Address, cs.Port);
+                    using (var networkStream = client.GetStream())
+                    {
+                        await networkStream.WriteAsync(data, 0, data.Length);
+                    }
                 }
                 finally
                 {
-                    stream?.Close();
+                    client?.Close();
                 }
             }
         }

@@ -1,13 +1,9 @@
-﻿using DAL.Entities;
-using DAL.Entities.Interface;
+﻿using DAL.Entities.Interface;
 using DAL.Repositories.Interface;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using BLL.Services;
 
 namespace Configurator.Domain
