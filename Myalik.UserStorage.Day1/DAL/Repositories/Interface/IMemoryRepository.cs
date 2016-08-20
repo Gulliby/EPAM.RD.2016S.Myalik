@@ -1,11 +1,26 @@
-﻿using DAL.Entities.Interface;
-using System.Collections.Generic;
+﻿// <copyright file="IMemoryRepository.cs" company="Sprocket Enterprises">
+//     Copyright (c) Ilya Myalik. All rights reserved.
+// </copyright>
+// <author>Ilya Myalik</author>
 
 namespace DAL.Repositories.Interface
 {
+    using Entities.Interface;
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// Memory repository interface.
+    /// </summary>
+    /// <typeparam name="TEntity">Custom entity.</typeparam>
     public interface IMemoryRepository<TEntity> : IRepository<TEntity>
         where TEntity : IDalEntity
     {
-        IEnumerable<TEntity> Entities { get; }
+        /// <summary>
+        /// Gets entities which stores in repository.
+        /// </summary>
+        IEnumerable<TEntity> Entities
+        {
+            get;
+        }
     }
 }

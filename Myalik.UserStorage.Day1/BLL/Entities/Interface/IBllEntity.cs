@@ -1,7 +1,21 @@
-﻿namespace BLL.Entities.Interface
+﻿// <copyright file="IBllEntity.cs" company="Sprocket Enterprises">
+//     Copyright (c) Ilya Myalik. All rights reserved.
+// </copyright>
+// <author>Ilya Myalik</author>
+
+namespace BLL.Entities.Interface
 {
-    public interface IBllEnitity
+    /// <summary>
+    /// Interface for business logic layer entities.
+    /// </summary>
+    public interface IBllEntity
     {
-        int Id { get; }
+        /// <summary>
+        /// Gets uniquely identifies an object of country.
+        /// </summary>
+        int Id
+        {
+            get;
+        }
     }
 }

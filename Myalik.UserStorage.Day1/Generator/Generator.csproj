@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\IndexCantBeCreated.cs" />
+    <Compile Include="Exceptions\IndexCantBeCreatedException.cs" />
     <Compile Include="Generators\FibIdGenerator.cs" />
     <Compile Include="Generators\Interface\IGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

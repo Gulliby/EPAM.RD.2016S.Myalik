@@ -1,4 +1,9 @@
-﻿using System.Reflection;
+﻿// <copyright file="AssemblyInfo.cs" company="Sprocket Enterprises">
+//     Copyright (c) Ilya Myalik. All rights reserved.
+// </copyright>
+// <author>Ilya Myalik</author>
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 

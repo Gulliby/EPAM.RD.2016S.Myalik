@@ -1,28 +1,42 @@
-﻿using System;
-using BLL.Entities.Interface;
+﻿// <copyright file="DataChangedEventArgs.cs" company="Sprocket Enterprises">
+//     Copyright (c) Ilya Myalik. All rights reserved.
+// </copyright>
+// <author>Ilya Myalik</author>
 
 namespace BLL.Event
 {
-    public class DataChangedEventArgs<TEntity>: EventArgs 
-        where TEntity : IBllEnitity  
+    using System;
+    using Entities.Interface;
+
+    public class DataChangedEventArgs<TEntity> : EventArgs 
+        where TEntity : IBllEntity  
     {
-        #region Private Fields
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataChangedEventArgs{TEntity}"/> class.
+        /// </summary>
+        /// <param name="user">User instance.</param>
+        public DataChangedEventArgs(TEntity user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            this.User = user;
+        }
 
         #endregion
 
         #region Propetries
 
-        public TEntity User { get; }
-
-        #endregion
-
-        #region Constructors
-
-        public DataChangedEventArgs(TEntity user)
+        /// <summary>
+        /// Gets information of a user that need to be added/deleted.
+        /// </summary>
+        public TEntity User
         {
-            if (user == null)
-                throw new ArgumentNullException(nameof(user));
-            User = user;
+            get;
         }
 
         #endregion

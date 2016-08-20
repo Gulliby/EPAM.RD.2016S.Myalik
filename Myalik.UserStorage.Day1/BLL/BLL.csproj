@@ -59,7 +59,7 @@
     <Compile Include="Entities\NetworkUserMesssage.cs" />
     <Compile Include="Event\DataChangedEventArgs.cs" />
     <Compile Include="Event\FullDataChangedEventArgs.cs" />
-    <Compile Include="Extensions\NetworkMessageExtension.cs" />
+    <Compile Include="Extensions\NetworkMessageSerializeExtension.cs" />
     <Compile Include="Logger\BllLogger.cs" />
     <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

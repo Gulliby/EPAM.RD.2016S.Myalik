@@ -1,52 +1,99 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Generator.Generators.Interface;
+﻿// <copyright file="FibIdGenerator.cs" company="Sprocket Enterprises">
+//     Copyright (c) Ilya Myalik. All rights reserved.
+// </copyright>
+// <author>Ilya Myalik</author>
 
 namespace Generator.Generators
 {
-    [Serializable]
-    public class FibIterator : IEnumerator<int>,IGenerator
-    {
+    using System;
+    using System.Collections;
+    using Interface;
 
-        public FibIterator(int current, int prev)
+    [Serializable]
+    public class FibIdGenerator : IGenerator
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FibIdGenerator"/> class.
+        /// </summary>
+        /// <param name="current">Current number.</param>
+        /// <param name="prev">Previous number.</param>
+        public FibIdGenerator(int current, int prev)
         {
-            Current = current;
-            Prev = prev;
+            this.Current = current;
+            this.Prev = prev;
         }
 
-        public FibIterator() : this(1, 0) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FibIdGenerator"/> class.
+        /// </summary>
+        public FibIdGenerator() : this(1, 0)
+        {        
+        }
 
-        public int Prev { get; private set; }
+        /// <summary>
+        /// Gets information about previous number of the sequence.
+        /// </summary>
+        public int Prev
+        {
+            get;
+            private set;
+        }
 
-        public int Current{ get; private set; }
+        /// <summary>
+        /// Gets information about current number of the sequence.
+        /// </summary>
+        public int Current
+        {
+            get;
+            private set;
+        }
 
-        object IEnumerator.Current => Current;
+        /// <summary>
+        /// Gets information about current number of the sequence.
+        /// </summary>
+        object IEnumerator.Current => this.Current;
 
+        /// <summary>
+        /// Advances the enumerator to the next element of the collection.
+        /// </summary>
+        /// <returns>true if the enumerator was successfully advanced to the next element; false if the enumerator has passed the end of the collection.</returns>
         public bool MoveNext()
         {
-            if (int.MaxValue - Current < Prev)
+            if (int.MaxValue - this.Current < this.Prev)
+            {
                 return false;
-            var temp = Prev + Current;
-            Prev = Current;
-            Current = temp;
+            }
+
+            var temp = this.Prev + this.Current;
+            this.Prev = this.Current;
+            this.Current = temp;
             return true;
         }
 
+        /// <summary>
+        /// Sets the enumerator to its initial position, which is before the first element in the collection.
+        /// </summary>
         public void Reset()
         {
-            Prev = 0;
-            Current = 1;
+            this.Prev = 0;
+            this.Current = 1;
         }
 
+        /// <summary>
+        /// Method is using for closing and releasing unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
-            Prev = Current = 0;
+            this.Prev = this.Current = 0;
         }
 
+        /// <summary>
+        /// Creates a new object that is a copy of the current generator instance.
+        /// </summary>
+        /// <returns>New object that is a copy of the current instance.</returns>
         public object Clone()
         {
-            return new FibIterator(Current, Prev);
+            return new FibIdGenerator(this.Current, this.Prev);
         }
     }
 }

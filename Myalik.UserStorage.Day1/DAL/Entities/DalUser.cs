@@ -1,38 +1,96 @@
-﻿using DAL.Entities.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// <copyright file="DalUser.cs" company="Sprocket Enterprises">
+//     Copyright (c) Ilya Myalik. All rights reserved.
+// </copyright>
+// <author>Ilya Myalik</author>
 
 namespace DAL.Entities
 {
+    using Interface;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     [Serializable]
     public class DalUser : IDalEntity
     {
-        public int Id { get; set; }
+        /// <summary>
+        /// Gets or sets uniquely identifies an object of country.
+        /// </summary>
+        public int Id
+        {
+            get;
+            set;
+        }
 
-        public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets user's name.
+        /// </summary>
+        public string Name
+        {
+            get;
+            set;
+        }
 
-        public string LastName { get; set; }
+        /// <summary>
+        /// Gets or sets user's last name.
+        /// </summary>
+        public string LastName
+        {
+            get;
+            set;
+        }
 
-        public string PersonalId { get; set; }
+        /// <summary>
+        /// Gets or sets user's personal id.
+        /// </summary>
+        public string PersonalId
+        {
+            get;
+            set;
+        }
 
-        public DalGender Gender { get; set; }
+        /// <summary>
+        /// Gets or sets user's sex.
+        /// </summary>
+        public DalGender Gender
+        {
+            get;
+            set;
+        }
 
-        public DateTime DayOfBirth { get; set; }
+        /// <summary>
+        /// Gets or sets user's birthday.
+        /// </summary>
+        public DateTime DayOfBirth
+        {
+            get;
+            set;
+        }
 
-        public List<DalVisaInfo> Visa { get; set; }
+        /// <summary>
+        /// Gets or sets collection of user's visa.
+        /// </summary>
+        public List<DalVisaInfo> Visa
+        {
+            get;
+            set;
+        }
 
+        /// <summary>
+        /// Creates a new object that is a copy of the current user instance.
+        /// </summary>
+        /// <returns>New object that is a copy of the current instance.</returns>
         public object Clone()
         {
             return new DalUser
             {
-                PersonalId = string.Copy(PersonalId),
-                DayOfBirth = DayOfBirth,
-                Gender = Gender,
-                Id = Id,
-                Name = string.Copy(Name),
-                LastName = string.Copy(LastName),
-                Visa = Visa.Select(item => (DalVisaInfo)item.Clone()).ToList()
+                PersonalId = string.Copy(this.PersonalId),
+                DayOfBirth = this.DayOfBirth,
+                Gender = this.Gender,
+                Id = this.Id,
+                Name = string.Copy(this.Name),
+                LastName = string.Copy(this.LastName),
+                Visa = this.Visa.Select(item => (DalVisaInfo)item.Clone()).ToList()
             };
         }
     }

@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DAL.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DAL.Repositories;
+﻿// <copyright file="MemoryRepositoryTests.cs" company="Sprocket Enterprises">
+//     Copyright (c) Ilya Myalik. All rights reserved.
+// </copyright>
+// <author>Ilya Myalik</author>
 
 namespace UserStorageTests.DalUnitTests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using DAL.Entities;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using DAL.Repositories;
+
     [TestClass]
     public class MemoryRepositoryTests
     {
@@ -34,13 +39,13 @@ namespace UserStorageTests.DalUnitTests
                 Name = "TestName",
                 LastName = "TestLastName"
             });
-            Assert.AreEqual(1,memoryRepository.Entities.Count());
+            Assert.AreEqual(1, memoryRepository.Entities.Count());
             memoryRepository.Delete(retId);
             Assert.AreEqual(0, memoryRepository.Entities.Count());
         }
 
         [TestMethod]
-        [ExpectedException(typeof (ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void MemoryRepository_GeneratorNull_ThrowsArgumentNullException()
         {
             new MemoryRepository<DalUser>(null);

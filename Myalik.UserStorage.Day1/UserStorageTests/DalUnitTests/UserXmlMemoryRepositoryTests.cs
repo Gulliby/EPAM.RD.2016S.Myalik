@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
-using DAL.Entities;
-using DAL.Repositories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿// <copyright file="UserXmlMemoryRepositoryTests.cs" company="Sprocket Enterprises">
+//     Copyright (c) Ilya Myalik. All rights reserved.
+// </copyright>
+// <author>Ilya Myalik</author>
 
 namespace UserStorageTests.DalUnitTests
 {
+    using System.Collections.Generic;
+    using DAL.Entities;
+    using DAL.Repositories;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class UserXmlMemoryRepositoryTests
     {
@@ -20,7 +25,7 @@ namespace UserStorageTests.DalUnitTests
             };
             userMemoryRepository.Add(user);
             userMemoryRepository.AddVisaByUserId(1, new DalVisaInfo());
-            Assert.AreEqual(1,user.Visa.Count);
+            Assert.AreEqual(1, user.Visa.Count);
         }
 
         [TestMethod]
@@ -36,10 +41,8 @@ namespace UserStorageTests.DalUnitTests
             userMemoryRepository.Add(user);
             userMemoryRepository.AddVisaByUserId(1, new DalVisaInfo());
             Assert.AreEqual(1, user.Visa.Count);
-            userMemoryRepository.RemoveVisaByUserId(1,new DalVisaInfo());
+            userMemoryRepository.RemoveVisaByUserId(1, new DalVisaInfo());
             Assert.AreEqual(0, user.Visa.Count);
         }
-
-
     }
 }

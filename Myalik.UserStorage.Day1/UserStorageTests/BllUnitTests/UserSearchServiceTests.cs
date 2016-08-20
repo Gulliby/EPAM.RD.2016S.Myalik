@@ -1,11 +1,16 @@
-﻿using System.Linq;
-using BLL.Services;
-using DAL.Entities;
-using DAL.Repositories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿// <copyright file="UserSearchServiceTests.cs" company="Sprocket Enterprises">
+//     Copyright (c) Ilya Myalik. All rights reserved.
+// </copyright>
+// <author>Ilya Myalik</author>
 
 namespace UserStorageTests.BllUnitTests
 {
+    using System.Linq;
+    using BLL.Services;
+    using DAL.Entities;
+    using DAL.Repositories;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class UserSearchServiceTests
     {
