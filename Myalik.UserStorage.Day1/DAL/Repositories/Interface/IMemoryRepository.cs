@@ -5,8 +5,8 @@
 
 namespace DAL.Repositories.Interface
 {
-    using Entities.Interface;
     using System.Collections.Generic;
+    using Entities.Interface;
 
     /// <summary>
     /// Memory repository interface.

@@ -5,10 +5,10 @@
 
 namespace DAL.Repositories.Interface
 {
-    using Entities.Interface;
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
+    using DAL.Entities.Interface;
 
     /// <summary>
     /// Repository interface.

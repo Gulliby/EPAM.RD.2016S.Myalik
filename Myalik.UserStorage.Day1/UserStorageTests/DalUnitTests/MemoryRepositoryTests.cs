@@ -9,8 +9,8 @@ namespace UserStorageTests.DalUnitTests
     using System.Collections.Generic;
     using System.Linq;
     using DAL.Entities;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using DAL.Repositories;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
     public class MemoryRepositoryTests

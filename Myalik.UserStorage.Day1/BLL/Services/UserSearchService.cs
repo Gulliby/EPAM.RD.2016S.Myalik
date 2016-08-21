@@ -9,12 +9,15 @@ namespace BLL.Services
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
-    using Entities;
-    using MainBllLogger;
-    using Interface;
+    using BLL.Entities;
+    using BLL.MainBllLogger;
+    using BLL.Mappers;
+    using BLL.Services.Interface;
     using DAL.Repositories.Interface;
-    using Mappers;
 
+    /// <summary>
+    /// Service for searching users.
+    /// </summary>
     [Serializable]
     public class UserSearchService : MarshalByRefObject, ISearchable<BllUser>
     {

@@ -5,16 +5,20 @@
 
 namespace DAL.Repositories
 {
-    using Interface;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
-    using Entities.Interface;
+    using DAL.Entities.Interface;
+    using DAL.Repositories.Interface;
     using Generator.Exceptions;
     using Generator.Generators;
     using Generator.Generators.Interface;
 
+    /// <summary>
+    /// Custom memory repository.
+    /// </summary>
+    /// <typeparam name="TEntity">Custom entity.</typeparam>
     [Serializable]
     public class MemoryRepository<TEntity> : IMemoryRepository<TEntity> 
         where TEntity : IDalEntity
@@ -36,7 +40,7 @@ namespace DAL.Repositories
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MemoryRepository{TEntity}"/> class.	
+        /// Initializes a new instance of the <see cref="MemoryRepository{TEntity}"/> class.
         /// </summary>
         public MemoryRepository()
         {
@@ -45,7 +49,7 @@ namespace DAL.Repositories
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MemoryRepository{TEntity}"/> class.	
+        /// Initializes a new instance of the <see cref="MemoryRepository{TEntity}"/> class.
         /// </summary>
         /// <param name="generator">Generator instance.</param>
         public MemoryRepository(FibIdGenerator generator)

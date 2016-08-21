@@ -13,6 +13,9 @@ namespace Configurator.Domain
     using DAL.Entities.Interface;
     using DAL.Repositories.Interface;
 
+    /// <summary>
+    /// Custom domain assembly loader.
+    /// </summary>
     public class DomainAssemblyLoader : MarshalByRefObject
     {
         /// <summary>

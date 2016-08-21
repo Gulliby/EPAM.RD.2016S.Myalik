@@ -8,6 +8,10 @@ namespace BLL.Event
     using System;
     using DAL.Repositories.Interface;
 
+    /// <summary>
+    /// Custom event args.
+    /// </summary>
+    /// <typeparam name="TRepository">Custom repository.</typeparam>
     public class FullDataChangedEventArgs<TRepository> : EventArgs 
         where TRepository : IUserRepository
     {

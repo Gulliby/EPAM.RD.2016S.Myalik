@@ -9,6 +9,9 @@ namespace Generator.Generators
     using System.Collections;
     using Interface;
 
+    /// <summary>
+    /// Custom id generator.
+    /// </summary>
     [Serializable]
     public class FibIdGenerator : IGenerator
     {

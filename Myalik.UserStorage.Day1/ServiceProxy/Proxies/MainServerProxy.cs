@@ -11,6 +11,9 @@ namespace ServiceProxy.Proxies
     using BLL.Services;
     using BLL.Services.Interface;
 
+    /// <summary>
+    /// Custom proxy.
+    /// </summary>
     public class MainServerProxy : IService<BllUser>
     {
         /// <summary>

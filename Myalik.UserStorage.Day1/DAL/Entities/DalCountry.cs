@@ -5,9 +5,12 @@
 
 namespace DAL.Entities
 {
-    using Interface;
     using System;
-
+    using Interface;
+    
+    /// <summary>
+    /// Custom country container.
+    /// </summary>
     [Serializable]
     public class DalCountry : IDalEntity
     {

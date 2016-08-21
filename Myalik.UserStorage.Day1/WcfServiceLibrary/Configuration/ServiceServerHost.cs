@@ -9,6 +9,9 @@ namespace WcfServiceLibrary.Configuration
     using System.ServiceModel;
     using ServiceProxy.Proxies;
 
+    /// <summary>
+    /// Custom service host.
+    /// </summary>
     public class ServiceServerHost : ServiceHost
     {
         /// <summary>

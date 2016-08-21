@@ -5,16 +5,19 @@
 
 namespace DAL.Repositories
 {
-    using Entities;
-    using Interface;
     using System;
     using System.IO;
     using System.Linq;
     using System.Xml.Serialization;
-    using Container;
+    using DAL.Container;
+    using DAL.Entities;
+    using DAL.Repositories.Interface;
     using Generator.Generators;
     using Generator.Generators.Interface;
 
+    /// <summary>
+    /// Custom xml memory repository.
+    /// </summary>
     [Serializable]
     public class UserXmlMemoryRepository : MemoryRepository<DalUser>, IUserRepository
     {

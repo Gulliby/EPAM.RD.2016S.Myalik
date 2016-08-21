@@ -9,6 +9,9 @@ namespace BLL.Validators
     using Entities;
     using Interface;
 
+    /// <summary>
+    /// Custom validator.
+    /// </summary>
     [Serializable] 
     public class UserValidator : IValidator<BllUser>
     {

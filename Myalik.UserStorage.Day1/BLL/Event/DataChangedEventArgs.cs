@@ -8,6 +8,10 @@ namespace BLL.Event
     using System;
     using Entities.Interface;
 
+    /// <summary>
+    /// Custom event args.
+    /// </summary>
+    /// <typeparam name="TEntity">Custom entity.</typeparam>
     public class DataChangedEventArgs<TEntity> : EventArgs 
         where TEntity : IBllEntity  
     {

@@ -7,6 +7,9 @@ namespace DAL.Container
     using System.Collections.Generic;
     using Entities;
 
+    /// <summary>
+    /// Custom serializable container.
+    /// </summary>
     public class UserSerializableContainer
     {
         /// <summary>

@@ -7,6 +7,9 @@ namespace Generator.Exceptions
 {
     using System;
 
+    /// <summary>
+    /// Custom exception when index can not be created.
+    /// </summary>
     [Serializable]
     public class IndexCantBeCreatedException : Exception
     {

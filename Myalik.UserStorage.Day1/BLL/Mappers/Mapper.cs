@@ -6,11 +6,14 @@
 namespace BLL.Mappers
 {
     using System.Linq;
-    using DAL.Entities.Interface;
     using DAL.Entities;
-    using Entities.Interface;
+    using DAL.Entities.Interface;
     using Entities;
+    using Entities.Interface;
 
+    /// <summary>
+    /// Custom mapper.
+    /// </summary>
     public static class Mapper
     {
         #region ToDal

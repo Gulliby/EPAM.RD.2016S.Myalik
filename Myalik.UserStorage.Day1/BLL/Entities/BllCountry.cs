@@ -5,9 +5,9 @@
 
 namespace BLL.Entities
 {
-    using Interface;
     using System;
-
+    using Interface;
+    
     /// <summary>
     /// Entity witch store information about a country.
     /// </summary>

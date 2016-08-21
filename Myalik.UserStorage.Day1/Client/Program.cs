@@ -11,6 +11,9 @@ namespace Client
     using System.Threading;
     using BLL.Entities;
 
+    /// <summary>
+    /// Entry point.
+    /// </summary>
     public class Program
     {
         /// <summary>

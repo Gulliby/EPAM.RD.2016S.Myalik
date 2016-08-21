@@ -13,13 +13,16 @@ namespace Configurator.Configurators
     using System.Net.Sockets;
     using System.Reflection;
     using BLL.Services;
-    using Interface;
-    using Domain;
+    using Configurator.Configurators.Interface;
+    using Configurator.Domain;
     using DAL.Entities;
     using DAL.Entities.Interface;
     using DAL.Repositories;
     using DAL.Repositories.Interface;
 
+    /// <summary>
+    /// Main service (master,slave) configurator.
+    /// </summary>
     public class ServiceConfigurator : IConfigurator
     {
         /// <summary>

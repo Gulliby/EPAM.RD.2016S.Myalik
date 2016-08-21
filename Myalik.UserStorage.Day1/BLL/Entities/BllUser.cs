@@ -4,10 +4,10 @@
 // <author>Ilya Myalik</author>
 
 namespace BLL.Entities
-{
-    using Interface;
+{ 
     using System;
     using System.Collections.Generic;
+    using Interface;
 
     /// <summary>
     /// Entity witch store user information.

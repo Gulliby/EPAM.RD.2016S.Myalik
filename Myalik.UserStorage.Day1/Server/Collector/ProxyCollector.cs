@@ -11,11 +11,14 @@ namespace Server.Collector
     using System.Net;
     using BLL.Services;
     using Configurator.Configurators;
-    using AppConfig.ConnectionConfig;
-    using AppConfig.FileConfig;
-    using AppConfig.ServiceConfig;
+    using Server.AppConfig.ConnectionConfig;
+    using Server.AppConfig.FileConfig;
+    using Server.AppConfig.ServiceConfig;
     using ServiceProxy.Proxies;
 
+    /// <summary>
+    /// Pick all the information together.
+    /// </summary>
     public static class ProxyCollector
     {
         /// <summary>

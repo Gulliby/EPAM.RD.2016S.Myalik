@@ -7,6 +7,9 @@ namespace Server.AppConfig.ConnectionConfig
 {
     using System.Configuration;
 
+    /// <summary>
+    /// Represents a configuration element within a configuration file.
+    /// </summary>
     public class ConnectionElement : ConfigurationElement
     {
         /// <summary>

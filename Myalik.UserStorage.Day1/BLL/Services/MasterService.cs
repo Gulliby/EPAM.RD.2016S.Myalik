@@ -5,20 +5,20 @@
 
 namespace BLL.Services
 {
-    using System.Collections.Generic;
-    using System.Net.Sockets;
-    using System.Net;
     using System;
+    using System.Collections.Generic;
+    using System.Net;
+    using System.Net.Sockets;
+    using BLL.Entities;
+    using BLL.Entities.Interface;
+    using BLL.Event;
+    using BLL.MainBllLogger;
+    using BLL.Mappers;
+    using BLL.Serializer;
+    using BLL.Services.Interface;
+    using BLL.Validators;
+    using BLL.Validators.Interface; 
     using DAL.Repositories.Interface;
-    using Entities.Interface;
-    using Entities;
-    using Event;
-    using Interface;
-    using MainBllLogger;
-    using Mappers;
-    using Serializer;
-    using Validators.Interface;
-    using Validators;
 
     /// <summary>
     /// Provides functionality for working with users.

@@ -9,6 +9,9 @@ namespace WcfServiceLibrary
     using BLL.Entities;
     using ServiceProxy.Proxies;
 
+    /// <summary>
+    /// Represents user service.
+    /// </summary>
     public class UserService : IUserService
     {
         /// <summary>

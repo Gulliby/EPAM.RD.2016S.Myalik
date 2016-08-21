@@ -5,11 +5,14 @@
 
 namespace DAL.Entities
 {
-    using Interface;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Interface;  
 
+    /// <summary>
+    /// Custom user container.
+    /// </summary>
     [Serializable]
     public class DalUser : IDalEntity
     {

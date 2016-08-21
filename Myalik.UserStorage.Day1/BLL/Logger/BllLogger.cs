@@ -7,6 +7,9 @@ namespace BLL.MainBllLogger
 {
     using NLog;
 
+    /// <summary>
+    /// Custom logger.
+    /// </summary>
     public static class BllLogger
     {
         /// <summary>

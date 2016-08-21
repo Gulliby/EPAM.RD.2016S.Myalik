@@ -9,6 +9,9 @@ namespace BLL.Extensions
     using System.Runtime.Serialization.Formatters.Binary;
     using Entities.Interface;
 
+    /// <summary>
+    /// Extension for message serialization.
+    /// </summary>
     public static class NetworkMessageSerializeExtension
     {
         /// <summary>
@@ -22,20 +25,6 @@ namespace BLL.Extensions
             var ms = new MemoryStream();
             bf.Serialize(ms, messsage);
             return ms.GetBuffer();
-        }
-    }
-
-    public static class NetworkMessageDeserializeExtension
-    {
-        /// <summary>
-        /// Method deserialize message from the binary format to IMessage.
-        /// </summary>
-        /// <param name="stream">Stream which contains message in binary format.</param>
-        /// <returns>Message in IMessage "format".</returns>
-        public static IMessage DeserializeMessageFromBinary(this Stream stream)
-        {
-            var formatter = new BinaryFormatter();
-            return formatter.Deserialize(stream) as IMessage;
         }
     }
 }

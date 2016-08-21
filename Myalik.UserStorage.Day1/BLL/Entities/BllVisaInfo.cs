@@ -5,8 +5,8 @@
 
 namespace BLL.Entities
 {
-    using Interface;
     using System;
+    using Interface;
 
     /// <summary>
     /// Entity witch store Visa information.

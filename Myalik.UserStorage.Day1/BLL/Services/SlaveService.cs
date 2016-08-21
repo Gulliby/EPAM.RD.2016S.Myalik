@@ -9,14 +9,14 @@ namespace BLL.Services
     using System.Net;
     using System.Net.Sockets;
     using System.Threading;
-    using Entities;
-    using Entities.Interface;
-    using Event;
-    using Interface;
-    using DAL.Repositories.Interface;
-    using MainBllLogger;
-    using Mappers;
-    using Serializer;
+    using BLL.Entities;
+    using BLL.Entities.Interface;
+    using BLL.Event;  
+    using BLL.MainBllLogger;   
+    using BLL.Mappers;
+    using BLL.Serializer;
+    using BLL.Services.Interface;
+    using DAL.Repositories.Interface; 
 
     /// <summary>
     /// Provides functionality for working with users.

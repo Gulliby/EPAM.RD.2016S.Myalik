@@ -5,9 +5,9 @@
 
 namespace DAL.Entities
 {
-    using Interface;
     using System;
-
+    using Interface;
+    
     /// <summary>
     /// Entity witch store visa information.
     /// </summary>
